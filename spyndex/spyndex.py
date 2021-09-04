@@ -96,19 +96,16 @@ def computeIndex(
     if len(result) == 1:
         result = result[0]
     else:
-        if isinstance(result[0], np.ndarray):
-            if returnNumpy:
+        if returnOrigin:
+            if isinstance(result[0], np.ndarray):                
                 result = np.array(result)
-        elif isinstance(result[0], pd.core.series.Series):
-            if returnPandas:
+            elif isinstance(result[0], pd.core.series.Series):
                 result = pd.DataFrame(dict(zip(index,result)))
-        elif isinstance(result[0], xr.core.dataarray.DataArray):
-            if returnDataArray:
+            elif isinstance(result[0], xr.core.dataarray.DataArray):                
                 result = xr.concat(result, dim=coordinate).assign_coords(
                     {coordinate=(coordinate,index)}
                 )
-        elif isinstance(result[0], ee.image.Image):
-            if returnEarthEngine:
+            elif isinstance(result[0], ee.image.Image):                
                 result = ee.Image(result).rename(index)
 
     return result

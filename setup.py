@@ -23,7 +23,7 @@ setup(
     long_description=read("README.rst"),
     packages=find_packages(exclude=("tests",), include=["spyndex", "spyndex.*"])),
     package_data={"spyndex": ["data/*.json"]},
-    install_requires=["numpy","requests"],
+    install_requires=["earthengine-api","numpy","pandas","requests","xarray"],
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "License :: OSI Approved :: MIT License",
