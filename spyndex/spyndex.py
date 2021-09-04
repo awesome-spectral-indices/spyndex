@@ -46,7 +46,7 @@ def computeIndex(
     params: dict,
     online: bool = False,
     returnOrigin: bool = True,
-    coordinate: str = "channel",
+    coordinate: str = "index",
 ) -> Any:
     """Computes one or more Spectral Indices from the Awesome Spectral Indices list.
 
@@ -70,7 +70,7 @@ def computeIndex(
         is returned. When numeric objects are used, numeric objects are returned. When
         numeric objects are used in combination with other objects, the type of the other
         object is returned. If false, a list is returned.
-    coordinate : str, default = "channel"
+    coordinate : str, default = "index"
         Name of the coordinate used to concatenate DataArray objects when
         :code:`returnOrigin = True`.
 
@@ -103,7 +103,7 @@ def computeIndex(
                 result = pd.DataFrame(dict(zip(index, result)))
             elif isinstance(result[0], xr.core.dataarray.DataArray):
                 result = xr.concat(result, dim=coordinate).assign_coords(
-                    {coordinate: (coordinate, index)}
+                    {coordinate: index}
                 )
             elif isinstance(result[0], ee.image.Image):
                 result = ee.Image(result).rename(index)

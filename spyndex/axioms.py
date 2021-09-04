@@ -1,4 +1,4 @@
-from spyndex.spyndex import _get_indices
+from .spyndex import _get_indices
 
 indices = _get_indices(False)
 

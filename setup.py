@@ -20,8 +20,8 @@ setup(
     author="David Montero Loaiza",
     author_email="dml.mont@gmail.com",
     description="Spectral Indices in Python",
-    long_description=read("README.rst"),
-    packages=find_packages(exclude=("tests",), include=["spyndex", "spyndex.*"]),
+    long_description=read("README.md"),
+    packages=find_packages(exclude=("tests",)),
     package_data={"spyndex": ["data/*.json"]},
     install_requires=["earthengine-api", "numpy", "pandas", "requests", "xarray"],
     classifiers=[
