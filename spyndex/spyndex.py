@@ -97,15 +97,15 @@ def computeIndex(
         result = result[0]
     else:
         if returnOrigin:
-            if isinstance(result[0], np.ndarray):                
+            if isinstance(result[0], np.ndarray):
                 result = np.array(result)
             elif isinstance(result[0], pd.core.series.Series):
-                result = pd.DataFrame(dict(zip(index,result)))
-            elif isinstance(result[0], xr.core.dataarray.DataArray):                
+                result = pd.DataFrame(dict(zip(index, result)))
+            elif isinstance(result[0], xr.core.dataarray.DataArray):
                 result = xr.concat(result, dim=coordinate).assign_coords(
-                    {coordinate=(coordinate,index)}
+                    {coordinate: (coordinate, index)}
                 )
-            elif isinstance(result[0], ee.image.Image):                
+            elif isinstance(result[0], ee.image.Image):
                 result = ee.Image(result).rename(index)
 
     return result
@@ -120,9 +120,9 @@ def computeKernel(kernel: str, params: dict) -> Any:
         Kernel to use. One of 'linear', 'poly' or 'RBF'.
     params : dict
         Parameters to use for the kernel computation.
-        For kernel = 'linear', the parameters 'a' (band A) and 'b' (band B) must be 
-        declared. For kernel = 'RBF', the parameters 'a' (band A), 'b' (band B) and 
-        'sigma' (length-scale) must be declared. For kernel = 'poly', the parameters 'a' 
+        For kernel = 'linear', the parameters 'a' (band A) and 'b' (band B) must be
+        declared. For kernel = 'RBF', the parameters 'a' (band A), 'b' (band B) and
+        'sigma' (length-scale) must be declared. For kernel = 'poly', the parameters 'a'
         (band A), 'b' (band B), 'p' (kernel degree) and 'c' (trade-off) must be declared.
 
     Returns
@@ -133,10 +133,17 @@ def computeKernel(kernel: str, params: dict) -> Any:
 
     kernels = {
         "linear": "a * b",
-        "RBF": "np.exp((-1.0 * (a - b) ** 2.0)/(2.0 * sigma ** 2.0))",
         "poly": "((a * b) + c) ** p",
     }
 
-    params["np"] = np
+    if isinstance(params["a"], ee.image.Image) or isinstance(
+        params["b"], ee.image.Image
+    ):
+        kernels["RBF"] = "exp((-1.0 * (a - b) ** 2.0)/(2.0 * sigma ** 2.0))"
+        result = params["a"].expression(kernels[kernel], params)
+    else:
+        kernels["RBF"] = "np.exp((-1.0 * (a - b) ** 2.0)/(2.0 * sigma ** 2.0))"
+        params["np"] = np
+        result = eval(kernels[kernel], params)
 
-    return eval(kernels[kernel], params)
+    return result
