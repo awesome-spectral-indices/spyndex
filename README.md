@@ -14,6 +14,12 @@
     Planetary Computer</a> </b>
 </p>
 <p align="center">
+<a href="https://github.com/davemlz/spyndex/actions/workflows/tests.yml" target="_blank">
+    <img src="https://github.com/davemlz/spyndex/actions/workflows/tests.yml/badge.svg" alt="Tests">
+</a>
+<a href="https://github.com/davemlz/spyndex/actions/workflows/update_awesome_spectral_indices.yml" target="_blank">
+    <img src="https://github.com/davemlz/spyndex/actions/workflows/update_awesome_spectral_indices.yml/badge.svg" alt="Awesome Spectral Indices">
+</a>
 <a href="https://opensource.org/licenses/MIT" target="_blank">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License">
 </a>
