@@ -9,7 +9,6 @@ import pandas as pd
 import pkg_resources
 import requests
 import xarray as xr
-from box import Box
 
 
 def _get_indices(online=False):
