@@ -1,7 +1,9 @@
-import requests
-import pkg_resources
-import os
 import json
+import os
+
+import pkg_resources
+import requests
+
 
 def _load_JSON(file="spectral-indices-dict.json"):
     """Loads the specified JSON file from the data folder.
