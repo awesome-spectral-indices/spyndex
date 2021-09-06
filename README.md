@@ -56,3 +56,49 @@
 **Tutorials**: *Under construction!*
 
 ---
+
+## Overview
+
+The [Awesome Spectral Indices](https://github.com/davemlz/awesome-ee-spectral-indices) is a standardized ready-to-use curated list of spectral indices
+that can be used as expressions for computing spectral indices in remote sensing applications. The list was born initially to supply spectral indices for
+[Google Earth Engine]() through [eemont](https://github.com/davemlz/eemont) and [spectral](https://github.com/davemlz/spectral), but given the necessity to
+compute spectral indices for other object classes outside the Earth Engine ecosystem, a new package was required.
+
+Spyndex is a python package that uses the spectral indices from the *Awesome Spectral Indices* list and creates an expression evaluation method that is
+compatible with python object classes that support [overloaded operators](https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types)
+(e.g. [numpy.ndarray](https://github.com/numpy/numpy), [pandas.DataFrame](https://github.com/pandas-dev/pandas),
+[xarray.DataArray](https://github.com/pydata/xarray)).
+
+Check the simple usage of spyndex here:
+
+```python
+import spyndex
+import numpy as np
+import xarray as xr
+
+N = np.random.normal(0.6,0.10,10000)
+R = np.random.normal(0.1,0.05,10000)
+
+da = xr.DataArray(
+    np.array([N,R]).reshape(2,100,100),
+    dims = ("band","x","y"),
+    coords = {"band": ["NIR","Red"]}
+)
+
+idx = spyndex.computeIndex(
+    index = ["NDVI","SAVI"],
+    params = {
+        "N": da.sel(band = "NIR"),
+        "R": da.sel(band = "Red"),
+        "L": 0.5
+    }
+)
+```
+
+## Installation
+
+Install the latest development version by running:
+
+```
+pip install git+https://github.com/davemlz/spyndex
+```
