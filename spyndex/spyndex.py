@@ -1,43 +1,13 @@
-import json
-import os
 import re
 from typing import Any, List, Optional, Union
 
 import ee
+import eemont
 import numpy as np
 import pandas as pd
-import pkg_resources
-import requests
 import xarray as xr
 
-
-def _get_indices(online=False):
-    """Retrieves the JSON of indices.
-
-    Parameters
-    ----------
-    online : boolean
-        Wheter to retrieve the most recent list of indices directly from the GitHub
-        repository and not from the local copy.
-
-    Returns
-    -------
-    dict
-        Indices.
-    """
-    if online:
-        indices = requests.get(
-            "https://raw.githubusercontent.com/davemlz/awesome-ee-spectral-indices/main/output/spectral-indices-dict.json"
-        ).json()
-    else:
-        spyndexDir = os.path.dirname(
-            pkg_resources.resource_filename("spyndex", "spyndex.py")
-        )
-        dataPath = os.path.join(spyndexDir, "data/spectral-indices-dict.json")
-        f = open(dataPath)
-        indices = json.load(f)
-
-    return indices["SpectralIndices"]
+from .utils import _get_indices
 
 
 def computeIndex(
@@ -77,6 +47,100 @@ def computeIndex(
     -------
     object
         Computed Spectral Indices according to the inputs' type.
+
+    Examples
+    --------
+    Compute a Spectral Index by passing the required :code:`params` dictionary:
+
+    >>> import spyndex
+    >>> idx = spyndex.computeIndex(
+    ...     index = "NDVI",
+    ...     params = {
+    ...         "N": 0.643,
+    ...         "R": 0.175
+    ...     }
+    ... )
+    0.5721271393643031
+
+    Two or more Spectral Indices can be computed:
+
+    >>> spyndex.computeIndex(
+    ...     index = ["NDVI","SAVI"],
+    ...     params = {
+    ...         "N": 0.643,
+    ...         "R": 0.175,
+    ...         "L": 0.5
+    ...     }
+    ... )
+    [0.5721271393643031, 0.5326251896813354]
+
+    Spyndex is versatile. Let's compute Spectral Indices from a numpy array:
+
+    >>> import numpy as np
+    >>> R = np.random.normal(0.12,0.05,10000)
+    >>> G = np.random.normal(0.34,0.07,10000)
+    >>> N = np.random.normal(0.67,0.12,10000)
+    >>> spyndex.computeIndex(
+    ...     index = ["NDVI","SAVI","GNDVI"],
+    ...     params = {
+    ...         "N": N,
+    ...         "R": R,
+    ...         "G": G,
+    ...         "L": 0.5
+    ...     }
+    ... )
+    array([[0.57190873, 0.63776266, 0.52554653, ..., 0.692647  , 0.72013087,
+            0.57576994],
+           [0.5494994 , 0.60604837, 0.47157809, ..., 0.60647869, 0.65887439,
+            0.52585032],
+           [0.33304486, 0.46408771, 0.28007567, ..., 0.35734698, 0.28536337,
+            0.50212151]])
+
+    Now, let's try a pandas DataFrame:
+
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({"Red":R,"Green":G,"NIR":N})
+    >>> spyndex.computeIndex(
+    ...     index = ["NDVI","SAVI","GNDVI"],
+    ...     params = {
+    ...         "N": df["NIR"],
+    ...         "R": df["Red"],
+    ...         "G": df["Green"],
+    ...         "L": 0.5
+    ...     }
+    ... )
+            NDVI      SAVI     GNDVI
+    0     0.571909  0.549499  0.333045
+    1     0.637763  0.606048  0.464088
+    2     0.525547  0.471578  0.280076
+    3     0.498328  0.443842  0.514775
+    4     0.625445  0.512757  0.227829
+    ...        ...       ...       ...
+    9995  0.706123  0.604131  0.233519
+    9996  0.731205  0.630090  0.389462
+    9997  0.692647  0.606479  0.357347
+    9998  0.720131  0.658874  0.285363
+    9999  0.575770  0.525850  0.502122
+
+    What about a xarray DataArray?
+
+    >>> import xarray as xr
+    >>> da = xr.DataArray(np.array([G,R,N]).reshape(3,100,100),
+    ...     dims = ("band","x","y"),
+    ...     coords = {"band": ["Green","Red","NIR"]})
+    >>> spyndex.computeIndex(
+    ...     index = ["NDVI","SAVI","GNDVI"],
+    ...     params = {
+    ...         "N": da.sel(band = "NIR"),
+    ...         "R": da.sel(band = "Red"),
+    ...         "G": da.sel(band = "Green"),
+    ...         "L": 0.5
+    ...     }
+    ... )
+    <xarray.DataArray (index: 3, x: 100, y: 100)>
+    Coordinates:
+        * index    (index) <U5 'NDVI' 'SAVI' 'GNDVI'
+    Dimensions without coordinates: x, y
     """
 
     if not isinstance(index, list):

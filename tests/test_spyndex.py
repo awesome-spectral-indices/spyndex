@@ -1,6 +1,7 @@
 import unittest
 
 import ee
+import eemont
 import numpy as np
 import pandas as pd
 import xarray as xr
@@ -179,6 +180,42 @@ class Test(unittest.TestCase):
         )
         self.assertIsInstance(result, list)
         self.assertIsInstance(result[0], xr.core.dataarray.DataArray)
+
+    def test_ee(self):
+        """Test the computeIndex() method"""
+        result = spyndex.computeIndex(
+            indices,
+            {
+                "N": ee.Image(0.63),
+                "R": ee.Image(0.13),
+                "G": ee.Image(0.32),
+                "B": ee.Image(0.12),
+                "L": spyndex.defaultParameters["L"],
+                "C1": spyndex.defaultParameters["C1"],
+                "C2": spyndex.defaultParameters["C2"],
+                "g": spyndex.defaultParameters["g"],
+            },
+        )
+        self.assertIsInstance(result, ee.image.Image)
+
+    def test_ee_origin_false(self):
+        """Test the computeIndex() method"""
+        result = spyndex.computeIndex(
+            indices,
+            {
+                "N": ee.Image(0.63),
+                "R": ee.Image(0.13),
+                "G": ee.Image(0.32),
+                "B": ee.Image(0.12),
+                "L": spyndex.defaultParameters["L"],
+                "C1": spyndex.defaultParameters["C1"],
+                "C2": spyndex.defaultParameters["C2"],
+                "g": spyndex.defaultParameters["g"],
+            },
+            returnOrigin=False,
+        )
+        self.assertIsInstance(result, list)
+        self.assertIsInstance(result[0], ee.image.Image)
 
 
 if __name__ == "__main__":
