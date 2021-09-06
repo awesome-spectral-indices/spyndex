@@ -95,6 +95,37 @@ idx = spyndex.computeIndex(
 )
 ```
 
+## How does it work?
+
+Any python object class that supports overloaded operators can be used with spyndex methods.
+
+---
+
+*"Hey... what do you mean by 'overloaded operators'?"*
+
+---
+
+That's the million dollars' question! An object class that supports overloaded operators is the one that allows you to compute operations like 
+`a + b`, `a + b * c` or `(a - b) / (a + b)`. You know the last one, right? That's the formula of the famous [NDVI](https://doi.org/10.1016/0034-4257(79)90013-0).
+
+So, if you can use the overloaded operators with an object class, you can use that class with [spyndex](https://github.com/davemlz/spyndex)!
+
+Here is a little list of object classes that support overloaded operators:
+
+- `float`
+- `int`
+- `numpy.ndarray` (with [numpy](https://github.com/numpy/numpy))
+- `pandas.Series` (with [pandas](https://github.com/pandas-dev/pandas))
+- `xarray.DataArray` (with [xarray](https://github.com/pydata/xarray))
+- `ee.Image` (with [earthengine-api](https://github.com/google/earthengine-api) and [eemont](https://github.com/davemlz/eemont))
+
+This means that you can actually use spyndex in a lot of processes! For example, you can download a Senitnel-2 image with
+[sentinelsat](https://github.com/sentinelsat/sentinelsat), open and read it with [rasterio](https://github.com/mapbox/rasterio) and then compute the desired
+spectral indices with [spyndex](https://github.com/davemlz/spyndex). Or you can search through the Landsat-8 STAC in the 
+[Planetary Computer](https://planetarycomputer.microsoft.com/) ecosystem using [pystac_client](https://github.com/stac-utils/pystac-client),
+convert it to an `xarray.DataArray` with [stackstac](https://github.com/gjoseph92/stackstac) and then compute spectral indices using
+[spyndex](https://github.com/davemlz/spyndex)! Amazing, right!?
+
 ## Installation
 
 Install the latest development version by running:
