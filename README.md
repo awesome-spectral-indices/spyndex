@@ -138,3 +138,48 @@ Install the latest development version by running:
 ```
 pip install git+https://github.com/davemlz/spyndex
 ```
+
+## Features
+
+### One or More Spectral Indices Computation
+
+Use the `computeIndex()` method to compute as many spectral indices as you want!
+The `index` parameter receives the spectral index or a list of spectral indices to
+compute, while the `params` parameter receives a dictionary with the  
+[required parameters](https://github.com/davemlz/awesome-ee-spectral-indices#expressions)
+for the spectral indices computation.
+
+```python
+import spyndex
+import xarray as xr
+import matplotlib.pyplot as plt
+from rasterio import plot
+
+# Open a dataset (in this case a xarray.DataArray)
+snt = spyndex.datasets.open("sentinel")
+
+# Scale the data (remember that the valid domain for reflectance is [0,1])
+snt = snt / 10000
+
+# Compute the desired spectral indices
+idx = spyndex.computeIndex(
+    index = ["NDVI","GNDVI","SAVI"],
+    params = {
+        "N": snt.sel(band = "B08"),
+        "R": snt.sel(band = "B04"),
+        "G": snt.sel(band = "B03"),
+        "L": 0.5
+    }
+)
+
+# Plot the indices (and the RGB image for comparison)
+fig, ax = plt.subplots(2,2,figsize = (10,10))
+plot.show(snt.sel(band = ["B04","B03","B02"]).data / 0.3,ax = ax[0,0],title = "RGB")
+plot.show(idx.sel(index = "NDVI"),ax = ax[0,1],title = "NDVI")
+plot.show(idx.sel(index = "GNDVI"),ax = ax[1,0],title = "GNDVI")
+plot.show(idx.sel(index = "SAVI"),ax = ax[1,1],title = "SAVI")
+```
+
+<p align="center">
+  <a href="https://github.com/davemlz/spyndex"><img src="https://raw.githubusercontent.com/davemlz/spyndex/main/docs/_static/sentinel.png" alt="sentinel spectral indices"></a>
+</p>
