@@ -8,7 +8,8 @@
 <p align="center">
     <b><a href="https://github.com/numpy/numpy" target="_blank">
     Numpy</a> | <a href="https://github.com/pandas-dev/pandas" target="_blank">
-    Pandas</a> | <a href="https://github.com/pydata/xarray" target="_blank">
+    Pandas</a> | <a href="https://github.com/geopandas/geopandas" target="_blank">
+    GeoPandas</a> | <a href="https://github.com/pydata/xarray" target="_blank">
     Xarray</a> | <a href="https://github.com/google/earthengine-api" target="_blank">
     Earth Engine</a> | <a href="https://github.com/microsoft/planetary-computer-sdk-for-python" target="_blank">
     Planetary Computer</a> </b>
@@ -66,7 +67,7 @@ compute spectral indices for other object classes outside the Earth Engine ecosy
 
 Spyndex is a python package that uses the spectral indices from the *Awesome Spectral Indices* list and creates an expression evaluation method that is
 compatible with python object classes that support [overloaded operators](https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types)
-(e.g. [numpy.ndarray](https://github.com/numpy/numpy), [pandas.DataFrame](https://github.com/pandas-dev/pandas),
+(e.g. [numpy.ndarray](https://github.com/numpy/numpy), [pandas.Series](https://github.com/pandas-dev/pandas),
 [xarray.DataArray](https://github.com/pydata/xarray)).
 
 Check the simple usage of spyndex here:
@@ -105,24 +106,28 @@ Any python object class that supports overloaded operators can be used with spyn
 
 ---
 
-That's the million dollars' question! An object class that supports overloaded operators is the one that allows you to compute operations like 
-`a + b`, `a + b * c` or `(a - b) / (a + b)`. You know the last one, right? That's the formula of the famous [NDVI](https://doi.org/10.1016/0034-4257(79)90013-0).
+That's the million dollars' question! An object class that supports overloaded operators is the one that allows you to compute mathematical operations using
+common operators (`+`, `-`, `/`, `*`, `**`) like `a + b`, `a + b * c` or `(a - b) / (a + b)`. You know the last one, right? That's the formula of the famous
+[NDVI](https://doi.org/10.1016/0034-4257(79)90013-0).
+
+> BE CAREFUL! Not all overloaded operators work as mathematical operators. In a `list` object class, the addition operator (`+`) concatenates two objects instead of performing an addition operation! So you must convert the `list` into a `numpy.ndarray` before using spyndex!
 
 So, if you can use the overloaded operators with an object class, you can use that class with [spyndex](https://github.com/davemlz/spyndex)!
 
 Here is a little list of object classes that support overloaded operators:
 
-- `float`
-- `int`
+- `float` (Python Built-in type) or `numpy.float*` (with [numpy](https://github.com/numpy/numpy))
+- `int` (Python Built-in type) or `numpy.int*` (with [numpy](https://github.com/numpy/numpy))
 - `numpy.ndarray` (with [numpy](https://github.com/numpy/numpy))
-- `pandas.Series` (with [pandas](https://github.com/pandas-dev/pandas))
+- `pandas.Series` (with [pandas](https://github.com/pandas-dev/pandas) or [geopandas](https://github.com/geopandas/geopandas))
 - `xarray.DataArray` (with [xarray](https://github.com/pydata/xarray))
 - `ee.Image` (with [earthengine-api](https://github.com/google/earthengine-api) and [eemont](https://github.com/davemlz/eemont))
+- `ee.Number` (with [earthengine-api](https://github.com/google/earthengine-api) and [eemont](https://github.com/davemlz/eemont))
 
-This means that you can actually use spyndex in a lot of processes! For example, you can download a Senitnel-2 image with
+This means that you can actually use spyndex in a lot of processes! For example, you can download a Sentinel-2 image with
 [sentinelsat](https://github.com/sentinelsat/sentinelsat), open and read it with [rasterio](https://github.com/mapbox/rasterio) and then compute the desired
 spectral indices with [spyndex](https://github.com/davemlz/spyndex). Or you can search through the Landsat-8 STAC in the 
-[Planetary Computer](https://planetarycomputer.microsoft.com/) ecosystem using [pystac_client](https://github.com/stac-utils/pystac-client),
+[Planetary Computer](https://planetarycomputer.microsoft.com/) ecosystem using [pystac-client](https://github.com/stac-utils/pystac-client),
 convert it to an `xarray.DataArray` with [stackstac](https://github.com/gjoseph92/stackstac) and then compute spectral indices using
 [spyndex](https://github.com/davemlz/spyndex)! Amazing, right!?
 
