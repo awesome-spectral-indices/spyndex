@@ -145,7 +145,7 @@ pip install git+https://github.com/davemlz/spyndex
 
 Use the `computeIndex()` method to compute as many spectral indices as you want!
 The `index` parameter receives the spectral index or a list of spectral indices to
-compute, while the `params` parameter receives a dictionary with the  
+compute, while the `params` parameter receives a dictionary with the
 [required parameters](https://github.com/davemlz/awesome-ee-spectral-indices#expressions)
 for the spectral indices computation.
 
