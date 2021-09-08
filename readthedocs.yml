@@ -1,0 +1,5 @@
+name: spyndex
+type: sphinx
+python:
+  version: 3.7  
+requirements_file: docs/docs-requirements.txt
