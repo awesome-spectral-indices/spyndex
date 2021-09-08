@@ -15,6 +15,9 @@
     Planetary Computer</a> </b>
 </p>
 <p align="center">
+<a href='https://spyndex.readthedocs.io/en/latest/?badge=latest'>
+    <img src='https://readthedocs.org/projects/spyndex/badge/?version=latest' alt='Documentation Status' />
+</a>
 <a href="https://github.com/davemlz/spyndex/actions/workflows/tests.yml" target="_blank">
     <img src="https://github.com/davemlz/spyndex/actions/workflows/tests.yml/badge.svg" alt="Tests">
 </a>
