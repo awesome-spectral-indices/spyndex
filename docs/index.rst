@@ -1,6 +1,9 @@
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :hidden:
+  
+   reference
+   contributing
 
 .. raw:: html
 
@@ -54,3 +57,6 @@
       </a>
       </p>
    </embed>
+
+Spyndex
+=======

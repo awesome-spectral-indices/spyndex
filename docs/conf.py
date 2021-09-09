@@ -30,9 +30,17 @@ release = "0.0.1"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [    
+extensions = [
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.autosectionlabel",
     'sphinx_copybutton'    
 ]
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -61,7 +69,7 @@ html_logo = "_static/logo.png"
 html_theme_options = {
 
     # Set the name of the project to appear in the navigation.
-    'nav_title': 'Spyndex',
+    'nav_title': '     ',
     
     # Set the color and the accent color
     'color_primary': 'white',
