@@ -8,8 +8,8 @@ There are two ways to contribute to spyndex:
 
 If you choose to contribute directly to spyndex, check the following guide!
 
-Contributing Guide
-------------------
+Guide
+-----
 
 Contributions to spyndex are welcome! Here you will find how to do it:
 
@@ -21,8 +21,8 @@ Contributions to spyndex are welcome! Here you will find how to do it:
 
 - **Documentation:** You can add examples, notes and references to the spyndex documentation by using the NumPy Docstrings of the spyndex documentation, or by creating blogs, tutorials or papers.
 
-Contribution Steps
-~~~~~~~~~~~~~~~~~~
+Steps
+~~~~~
 
 First, fork the `spyndex <https://github.com/davemlz/spyndex>`_ repository and clone it to your local machine. Then, create a development branch::
 
