@@ -45,7 +45,7 @@ def computeIndex(
 
     Returns
     -------
-    object
+    Any
         Computed Spectral Indices according to the inputs' type.
 
     Examples
@@ -190,7 +190,7 @@ def computeKernel(kernel: str, params: dict) -> Any:
 
     Returns
     -------
-    object
+    Any
         Computed kernel.
     """
 
