@@ -144,7 +144,7 @@ pip install git+https://github.com/davemlz/spyndex
 
 ## Features
 
-### One or More Spectral Indices Computation
+### One (or more) Spectral Indices Computation
 
 Use the `computeIndex()` method to compute as many spectral indices as you want!
 The `index` parameter receives the spectral index or a list of spectral indices to
@@ -185,4 +185,48 @@ plot.show(idx.sel(index = "SAVI"),ax = ax[1,1],title = "SAVI")
 
 <p align="center">
   <a href="https://github.com/davemlz/spyndex"><img src="https://raw.githubusercontent.com/davemlz/spyndex/main/docs/_static/sentinel.png" alt="sentinel spectral indices"></a>
+</p>
+
+### A `pandas.DataFrame`? Sure!
+
+No matter what kind of python object you're working with, it can be used with spyndex as long as it supports mathematical overloaded operators! 
+
+```python
+import spyndex
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Open a dataset (in this case a pandas.DataFrame)
+df = spyndex.datasets.open("spectral")
+
+# Compute the desired spectral indices
+idx = spyndex.computeIndex(
+    index = ["NDVI","NDWI","NDBI"],
+    params = {
+        "N": df["SR_B5"],
+        "R": df["SR_B4"],
+        "G": df["SR_B3"],
+        "S1": df["SR_B6"]
+    }
+)
+
+# Add the land cover column to the result
+idx["Land Cover"] = df["class"]
+
+# Create a color palette for plotting
+colors = ["#E33F62","#3FDDE3","#4CBA4B"]
+
+# Plot a pairplot to check the indices behaviour
+plt.figure(figsize = (15,15))
+g = sns.PairGrid(idx,hue = "Land Cover",palette = sns.color_palette(colors))
+g.map_lower(sns.scatterplot)
+g.map_upper(sns.kdeplot,fill=True,alpha = .5)
+g.map_diag(sns.kdeplot,fill = True)
+g.add_legend()
+plt.show()
+```
+
+<p align="center">
+  <a href="https://github.com/davemlz/spyndex"><img src="https://raw.githubusercontent.com/davemlz/spyndex/main/docs/_static/spectral.png" alt="landsat spectral indices"></a>
 </p>
