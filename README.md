@@ -66,8 +66,9 @@
 
 The [Awesome Spectral Indices](https://github.com/davemlz/awesome-ee-spectral-indices) is a standardized ready-to-use curated list of spectral indices
 that can be used as expressions for computing spectral indices in remote sensing applications. The list was born initially to supply spectral 
-indices for [Google Earth Engine]() through [eemont](https://github.com/davemlz/eemont) and [spectral](https://github.com/davemlz/spectral), but 
-given the necessity to compute spectral indices for other object classes outside the Earth Engine ecosystem, a new package was required.
+indices for [Google Earth Engine](https://earthengine.google.com/) through [eemont](https://github.com/davemlz/eemont) and 
+[spectral](https://github.com/davemlz/spectral), but given the necessity to compute spectral indices for other object classes outside the Earth 
+Engine ecosystem, a new package was required.
 
 Spyndex is a python package that uses the spectral indices from the *Awesome Spectral Indices* list and creates an expression evaluation method that is
 compatible with python object classes that support [overloaded operators](https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types)
