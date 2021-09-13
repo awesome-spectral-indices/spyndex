@@ -50,9 +50,9 @@
 
 ---
 
-**GitHub**: <a href="https://github.com/davemlz/spyndex" target="_blank">https://github.com/davemlz/spyndex</a>
+**GitHub**: [https://github.com/davemlz/spyndex](https://github.com/davemlz/spyndex)
 
-**Documentation**: *Under construction!*
+**Documentation**: [https://spyndex.readthedocs.io/](https://spyndex.readthedocs.io/)
 
 **PyPI**: *Under construction!*
 
@@ -73,6 +73,14 @@ Spyndex is a python package that uses the spectral indices from the *Awesome Spe
 compatible with python object classes that support [overloaded operators](https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types)
 (e.g. [numpy.ndarray](https://github.com/numpy/numpy), [pandas.Series](https://github.com/pandas-dev/pandas),
 [xarray.DataArray](https://github.com/pydata/xarray)).
+
+Some of the `spyndex` features are listed here:
+
+- Access to Spectral Indices from the Awesome Spectral Indices list.
+- Multiple Spectral Indices computation.
+- Kernel Indices computation.
+- Parallel processing.
+- Compatibility with a lot of python objects!
 
 Check the simple usage of spyndex here:
 
@@ -152,6 +160,28 @@ pip install git+https://github.com/davemlz/spyndex
 ```
 
 ## Features
+
+### Exploring Spectral Indices
+
+Spectral Indices from the Awesome Spectral Indices list can be accessed through
+`spyndex.indices`. This is a `dictionary` where each one of the indices in the list
+can be accessed as well as their [attributes](https://github.com/davemlz/awesome-ee-spectral-indices#attributes):
+
+```python
+import spyndex
+
+# All indices
+spyndex.indices
+
+# NDVI index
+spyndex.indices["NDVI"]
+
+# Formula of the NDVI
+spyndex.indices["NDVI"]["formula"]
+
+# Reference of the NDVI
+spyndex.indices["NDVI"]["reference"]
+```
 
 ### One (or more) Spectral Indices Computation
 
@@ -304,3 +334,11 @@ plt.show()
 <p align="center">
   <a href="https://github.com/davemlz/spyndex"><img src="https://raw.githubusercontent.com/davemlz/spyndex/main/docs/_static/heatmap2.png" alt="heatmap"></a>
 </p>
+
+## License
+
+The project is licensed under the MIT license.
+
+## Contributing
+
+Check the [contributing page](https://spyndex.readthedocs.io/en/latest/contributing.html).
