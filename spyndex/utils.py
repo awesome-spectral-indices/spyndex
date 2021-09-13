@@ -4,6 +4,8 @@ import os
 import pkg_resources
 import requests
 
+import spyndex
+
 
 def _load_JSON(file="spectral-indices-dict.json"):
     """Loads the specified JSON file from the data folder.
@@ -48,3 +50,25 @@ def _get_indices(online=False):
         indices = _load_JSON()
 
     return indices["SpectralIndices"]
+
+
+def _check_params(index: str, params: dict):
+    """Checks if the parameters dictionary contains all required bands for the index
+    computation.
+
+    Parameters
+    ----------
+    index : str
+        Index to check.
+    params : dict
+        Parameters dictionary to check.
+
+    Returns
+    -------
+    None
+    """
+    for band in spyndex.indices[index]["bands"]:
+        if band not in list(params.keys()):
+            raise Exception(
+                f"'{band}' is missing in the parameters for {index} computation!"
+            )

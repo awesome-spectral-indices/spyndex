@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 
-from .utils import _get_indices
+from .utils import _check_params, _get_indices
 
 
 def computeIndex(
@@ -154,6 +154,7 @@ def computeIndex(
         if idx not in names:
             raise Exception(f"{idx} is not a valid Spectral Index!")
         else:
+            _check_params(idx, params)
             result.append(eval(indices[idx]["formula"], params))
 
     if len(result) == 1:

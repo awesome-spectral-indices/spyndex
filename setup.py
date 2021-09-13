@@ -26,9 +26,11 @@ setup(
     install_requires=[
         "earthengine-api",
         "eemont",
+        "matplotlib",
         "numpy",
         "pandas",
         "requests",
+        "seaborn",
         "xarray",
     ],
     classifiers=[

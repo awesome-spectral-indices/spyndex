@@ -230,3 +230,32 @@ plt.show()
 <p align="center">
   <a href="https://github.com/davemlz/spyndex"><img src="https://raw.githubusercontent.com/davemlz/spyndex/main/docs/_static/spectral.png" alt="landsat spectral indices"></a>
 </p>
+
+### Plotting Spectral Indices
+
+All posible values of a spectral index can be visualized using `spyndex.plot.heatmap()`! This is a module that doesn't require data,
+just specify the index, the bands, and BOOM! Heatmap of all the possible values of the index!
+
+```python
+import spyndex
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Define subplots grid
+fig, ax = plt.subplots(1,3,figsize = (25,5))
+
+# Plot the NDVI with the Red values on the x-axis and the NIR on the y-axis
+spyndex.plot.heatmap("NDVI","R","N",ax = ax[0])
+
+# Keywords arguments can be passed for sns.heatmap()
+spyndex.plot.heatmap("NDVI","R","N",cmap = "Spectral",ax = ax[1])
+
+# Annotate the heatmap
+spyndex.plot.heatmap("NDVI","R","N",annot = True,cmap = "Spectral",ax = ax[2])
+
+plt.show()
+```
+
+<p align="center">
+  <a href="https://github.com/davemlz/spyndex"><img src="https://raw.githubusercontent.com/davemlz/spyndex/main/docs/_static/heatmap.png" alt="heatmap"></a>
+</p>

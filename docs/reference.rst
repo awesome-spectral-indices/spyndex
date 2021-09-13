@@ -29,3 +29,16 @@ module can be loaded from the module (e.g., :code:`spyndex.datasets.open()`):
    :toctree: stubs
 
    open
+
+spyndex.plot
+------------
+
+Plotting indices. Automatically loaded with :code:`import spyndex`. Functions from this
+module can be loaded from the module (e.g., :code:`spyndex.plot.heatmap()`):
+
+.. currentmodule:: spyndex.plot
+
+.. autosummary::
+   :toctree: stubs
+
+   heatmap
