@@ -1,6 +1,9 @@
 import re
 from typing import Any, List, Optional, Union
 
+import dask
+import dask.array as da
+import dask.dataframe as dd
 import ee
 import eemont
 import numpy as np
@@ -38,7 +41,8 @@ def computeIndex(
         DataArray is returned. When Earth Engine Images are used, an Earth Engine Image
         is returned. When numeric objects are used, numeric objects are returned. When
         numeric objects are used in combination with other objects, the type of the other
-        object is returned. If false, a list is returned.
+        object is returned. When dask objects are used, dask objects are returned.
+        If false, a list is returned.
     coordinate : str, default = "index"
         Name of the coordinate used to concatenate DataArray objects when
         :code:`returnOrigin = True`.
@@ -171,6 +175,8 @@ def computeIndex(
                 )
             elif isinstance(result[0], ee.image.Image):
                 result = ee.Image(result).rename(index)
+            elif isinstance(result[0], dask.array.core.Array):
+                result = da.array(result)
 
     return result
 

@@ -12,7 +12,8 @@
     GeoPandas</a> | <a href="https://github.com/pydata/xarray" target="_blank">
     Xarray</a> | <a href="https://github.com/google/earthengine-api" target="_blank">
     Earth Engine</a> | <a href="https://github.com/microsoft/planetary-computer-sdk-for-python" target="_blank">
-    Planetary Computer</a> </b>
+    Planetary Computer</a> | <a href="https://docs.dask.org/en/latest/" target="_blank">
+    Dask</a> </b>
 </p>
 <p align="center">
 <a href='https://spyndex.readthedocs.io/en/latest/?badge=latest'>
@@ -64,9 +65,9 @@
 ## Overview
 
 The [Awesome Spectral Indices](https://github.com/davemlz/awesome-ee-spectral-indices) is a standardized ready-to-use curated list of spectral indices
-that can be used as expressions for computing spectral indices in remote sensing applications. The list was born initially to supply spectral indices for
-[Google Earth Engine]() through [eemont](https://github.com/davemlz/eemont) and [spectral](https://github.com/davemlz/spectral), but given the necessity to
-compute spectral indices for other object classes outside the Earth Engine ecosystem, a new package was required.
+that can be used as expressions for computing spectral indices in remote sensing applications. The list was born initially to supply spectral 
+indices for [Google Earth Engine]() through [eemont](https://github.com/davemlz/eemont) and [spectral](https://github.com/davemlz/spectral), but 
+given the necessity to compute spectral indices for other object classes outside the Earth Engine ecosystem, a new package was required.
 
 Spyndex is a python package that uses the spectral indices from the *Awesome Spectral Indices* list and creates an expression evaluation method that is
 compatible with python object classes that support [overloaded operators](https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types)
@@ -109,15 +110,15 @@ Any python object class that supports overloaded operators can be used with spyn
 
 ---
 
-That's the million dollars' question! An object class that supports overloaded operators is the one that allows you to compute mathematical operations using
-common operators (`+`, `-`, `/`, `*`, `**`) like `a + b`, `a + b * c` or `(a - b) / (a + b)`. You know the last one, right? That's the formula of the famous
-[NDVI](https://doi.org/10.1016/0034-4257(79)90013-0).
-
-> BE CAREFUL! Not all overloaded operators work as mathematical operators. In a `list` object class, the addition operator (`+`) concatenates two objects instead of performing an addition operation! So you must convert the `list` into a `numpy.ndarray` before using spyndex!
+That's the million dollars' question! An object class that supports overloaded operators is the one that allows you to compute mathematical 
+operations using common operators (`+`, `-`, `/`, `*`, `**`) like `a + b`, `a + b * c` or `(a - b) / (a + b)`. You know the last one, right? That's 
+the formula of the famous [NDVI](https://doi.org/10.1016/0034-4257(79)90013-0).
 
 So, if you can use the overloaded operators with an object class, you can use that class with [spyndex](https://github.com/davemlz/spyndex)!
 
-Here is a little list of object classes that support overloaded operators:
+> BE CAREFUL! Not all overloaded operators work as mathematical operators. In a `list` object class, the addition operator (`+`) concatenates two objects instead of performing an addition operation! So you must convert the `list` into a `numpy.ndarray` before using spyndex!
+
+Here is a little list of object classes that support mathematical overloaded operators:
 
 - `float` (Python Built-in type) or `numpy.float*` (with [numpy](https://github.com/numpy/numpy))
 - `int` (Python Built-in type) or `numpy.int*` (with [numpy](https://github.com/numpy/numpy))
@@ -127,12 +128,20 @@ Here is a little list of object classes that support overloaded operators:
 - `ee.Image` (with [earthengine-api](https://github.com/google/earthengine-api) and [eemont](https://github.com/davemlz/eemont))
 - `ee.Number` (with [earthengine-api](https://github.com/google/earthengine-api) and [eemont](https://github.com/davemlz/eemont))
 
+And wait, there is more! If objects that support overloaded operatores can be used in spyndex, that means that you can work in **parallel**
+with [dask](https://docs.dask.org/en/latest/)!
+
+Here is the list of the dask objects that you can use with spyndex:
+
+- `dask.array` (with [dask](https://docs.dask.org/en/latest/))
+- `dask.dataframe` (with [dask](https://docs.dask.org/en/latest/))
+
 This means that you can actually use spyndex in a lot of processes! For example, you can download a Sentinel-2 image with
-[sentinelsat](https://github.com/sentinelsat/sentinelsat), open and read it with [rasterio](https://github.com/mapbox/rasterio) and then compute the desired
-spectral indices with [spyndex](https://github.com/davemlz/spyndex). Or you can search through the Landsat-8 STAC in the 
+[sentinelsat](https://github.com/sentinelsat/sentinelsat), open and read it with [rasterio](https://github.com/mapbox/rasterio) and then compute 
+the desired spectral indices with [spyndex](https://github.com/davemlz/spyndex). Or you can search through the Landsat-8 STAC in the 
 [Planetary Computer](https://planetarycomputer.microsoft.com/) ecosystem using [pystac-client](https://github.com/stac-utils/pystac-client),
 convert it to an `xarray.DataArray` with [stackstac](https://github.com/gjoseph92/stackstac) and then compute spectral indices using
-[spyndex](https://github.com/davemlz/spyndex)! Amazing, right!?
+[spyndex](https://github.com/davemlz/spyndex) in parallel with [dask](https://docs.dask.org/en/latest/)! Amazing, right!?
 
 ## Installation
 
@@ -189,7 +198,7 @@ plot.show(idx.sel(index = "SAVI"),ax = ax[1,1],title = "SAVI")
 
 ### A `pandas.DataFrame`? Sure!
 
-No matter what kind of python object you're working with, it can be used with spyndex as long as it supports mathematical overloaded operators! 
+No matter what kind of python object you're working with, it can be used with `spyndex` as long as it supports mathematical overloaded operators! 
 
 ```python
 import spyndex
@@ -221,7 +230,7 @@ colors = ["#E33F62","#3FDDE3","#4CBA4B"]
 plt.figure(figsize = (15,15))
 g = sns.PairGrid(idx,hue = "Land Cover",palette = sns.color_palette(colors))
 g.map_lower(sns.scatterplot)
-g.map_upper(sns.kdeplot,fill=True,alpha = .5)
+g.map_upper(sns.kdeplot,fill = True,alpha = .5)
 g.map_diag(sns.kdeplot,fill = True)
 g.add_legend()
 plt.show()
@@ -230,6 +239,43 @@ plt.show()
 <p align="center">
   <a href="https://github.com/davemlz/spyndex"><img src="https://raw.githubusercontent.com/davemlz/spyndex/main/docs/_static/spectral.png" alt="landsat spectral indices"></a>
 </p>
+
+### Parallel Processing
+
+Parallel processing is possible with `spyndex` and `dask`! You can use `dask.array` or `dask.dataframe` objects to compute spectral indices with spyndex!
+If you're using `xarray`, you can also define a chunk size and work in parallel!
+
+```python
+import spyndex
+import numpy as np
+import dask.array as da
+
+# Define the array shape
+array_shape = (10000,10000)
+
+# Define the chunk size
+chunk_size = (1000,1000)
+
+# Create a dask.array object
+dask_array = da.array([
+    da.random.normal(0.6,0.10,array_shape,chunks = chunk_size),
+    da.random.normal(0.1,0.05,array_shape,chunks = chunk_size)
+])
+
+# "Compute" the desired spectral indices
+idx = spyndex.computeIndex(
+    index = ["NDVI","SAVI"],
+    params = {
+        "N": dask_array[0],
+        "R": dask_array[1],
+        "L": 0.5
+    }
+)
+
+# Since dask works in lazy mode,
+# you have to tell it that you want to compute the indices!
+idx.compute()
+```
 
 ### Plotting Spectral Indices
 
@@ -242,16 +288,15 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Define subplots grid
-fig, ax = plt.subplots(1,3,figsize = (25,5))
+fig, ax = plt.subplots(1,2,figsize = (20,8))
 
 # Plot the NDVI with the Red values on the x-axis and the NIR on the y-axis
+ax[0].set_title("NDVI heatmap with default parameters")
 spyndex.plot.heatmap("NDVI","R","N",ax = ax[0])
 
 # Keywords arguments can be passed for sns.heatmap()
-spyndex.plot.heatmap("NDVI","R","N",cmap = "Spectral",ax = ax[1])
-
-# Annotate the heatmap
-spyndex.plot.heatmap("NDVI","R","N",annot = True,cmap = "Spectral",ax = ax[2])
+ax[1].set_title("NDVI heatmap with seaborn keywords arguments")
+spyndex.plot.heatmap("NDVI","R","N",annot = True,cmap = "Spectral",ax = ax[1])
 
 plt.show()
 ```
