@@ -2,8 +2,12 @@
    :maxdepth: 2
    :hidden:
   
+   started
    reference
    contributing
+
+Spyndex
+=======
 
 .. raw:: html
 
@@ -22,7 +26,8 @@
          GeoPandas</a> | <a href="https://github.com/pydata/xarray" target="_blank">
          Xarray</a> | <a href="https://github.com/google/earthengine-api" target="_blank">
          Earth Engine</a> | <a href="https://github.com/microsoft/planetary-computer-sdk-for-python" target="_blank">
-         Planetary Computer</a> </b>
+         Planetary Computer</a> | <a href="https://docs.dask.org/en/latest/" target="_blank">
+         Dask</a> </b>
       </p>
       <p align="center">
       <a href='https://spyndex.readthedocs.io/en/latest/?badge=latest'>
@@ -57,6 +62,3 @@
       </a>
       </p>
    </embed>
-
-Spyndex
-=======

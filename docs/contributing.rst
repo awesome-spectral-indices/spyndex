@@ -4,7 +4,7 @@ Contributing
 There are two ways to contribute to spyndex:
 
 1. Contribute with a new Spectral Index to the `Awesome Spectral Indices <https://github.com/davemlz/awesome-ee-spectral-indices>`_ GitHub repository.
-2. Contribute with new methods or improvementes to spyndex!
+2. Contribute with new methods or improvements to spyndex!
 
 If you choose to contribute directly to spyndex, check the following guide!
 
