@@ -177,7 +177,7 @@ def computeIndex(
                 result = ee.Image(result).rename(index)
             elif isinstance(result[0], dask.array.core.Array):
                 result = da.array(result)
-            elif isinstance(result[0], dask.dataframe.core.DataFrame):
+            elif isinstance(result[0], dask.dataframe.core.Series):
                 result = dd.concat(result,axis = "columns")
                 result.columns = index
 
