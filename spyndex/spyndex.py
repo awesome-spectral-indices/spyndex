@@ -39,7 +39,8 @@ def computeIndex(
         When pandas series are used, a pandas DataFrame is returned. When numpy arrays
         are used, a numpy array is returned. When xarray DataArrays are used, a xarray
         DataArray is returned. When Earth Engine Images are used, an Earth Engine Image
-        is returned. When numeric objects are used, numeric objects are returned. When
+        is returned. When Earth Engine Numbers are used, an Earth Engine List is
+        returned. When numeric objects are used, numeric objects are returned. When
         numeric objects are used in combination with other objects, the type of the other
         object is returned. When dask objects are used, dask objects are returned.
         If false, a list is returned.
@@ -78,7 +79,7 @@ def computeIndex(
     ... )
     [0.5721271393643031, 0.5326251896813354]
 
-    Spyndex is versatile. Let's compute Spectral Indices from a numpy array:
+    Spyndex is versatile! Let's compute Spectral Indices from a :code:`numpy.ndarray`:
 
     >>> import numpy as np
     >>> R = np.random.normal(0.12,0.05,10000)
@@ -100,7 +101,7 @@ def computeIndex(
            [0.33304486, 0.46408771, 0.28007567, ..., 0.35734698, 0.28536337,
             0.50212151]])
 
-    Now, let's try a pandas DataFrame:
+    Now, let's try a :code:`pandas.DataFrame`:
 
     >>> import pandas as pd
     >>> df = pd.DataFrame({"Red":R,"Green":G,"NIR":N})
@@ -126,7 +127,7 @@ def computeIndex(
     9998  0.720131  0.658874  0.285363
     9999  0.575770  0.525850  0.502122
 
-    What about a xarray DataArray?
+    What about a :code:`xarray.DataArray`?
 
     >>> import xarray as xr
     >>> da = xr.DataArray(np.array([G,R,N]).reshape(3,100,100),
@@ -145,6 +146,45 @@ def computeIndex(
     Coordinates:
         * index    (index) <U5 'NDVI' 'SAVI' 'GNDVI'
     Dimensions without coordinates: x, y
+
+    Now let's try :code:`dask`!
+
+    >>> import dask.array as da
+    >>> array_shape = (10000,10000)
+    >>> chunk_size = (1000,1000)
+    >>> dask_array = da.array([
+    ...     da.random.normal(0.6,0.10,array_shape,chunks = chunk_size),
+    ...     da.random.normal(0.1,0.05,array_shape,chunks = chunk_size),
+    ...     da.random.normal(0.3,0.02,array_shape,chunks = chunk_size)
+    ... ])
+    >>> spyndex.computeIndex(
+    ...     index = ["NDVI","SAVI","GNDVI"],
+    ...     params = {
+    ...         "N": dask_array[0],
+    ...         "R": dask_array[1],
+    ...         "G": dask_array[2],
+    ...         "L": 0.5
+    ...     }
+    ... ).compute()
+
+    And a :code:`dask.DataFrame`?
+
+    >>> import dask.dataframe as dd
+    >>> df = pd.DataFrame({
+    ...     "NIR": np.random.normal(0.6,0.10,1000),
+    ...     "RED": np.random.normal(0.1,0.05,1000),
+    ...     "GREEN": np.random.normal(0.3,0.02,1000),
+    ... })
+    >>> df = dd.from_pandas(df,npartitions = 10)
+    >>> spyndex.computeIndex(
+    ...     index = ["NDVI","SAVI","GNDVI"],
+    ...     params = {
+    ...         "N": df["NIR"],
+    ...         "R": df["RED"],
+    ...         "G": df["GREEN"],
+    ...         "L": 0.5
+    ...     }
+    ... ).compute()
     """
 
     if not isinstance(index, list):
@@ -175,17 +215,19 @@ def computeIndex(
                 )
             elif isinstance(result[0], ee.image.Image):
                 result = ee.Image(result).rename(index)
+            elif isinstance(result[0], ee.ee_number.Number):
+                result = ee.List(result)
             elif isinstance(result[0], dask.array.core.Array):
                 result = da.array(result)
             elif isinstance(result[0], dask.dataframe.core.Series):
-                result = dd.concat(result,axis = "columns")
+                result = dd.concat(result, axis="columns")
                 result.columns = index
 
     return result
 
 
 def computeKernel(kernel: str, params: dict) -> Any:
-    """Computes a kernel :code:`k(a,b)` to use for Kernel Indices computation.
+    """Computes a kernel :code:`k(a,b)`.
 
     Parameters
     ----------
@@ -209,8 +251,11 @@ def computeKernel(kernel: str, params: dict) -> Any:
         "poly": "((a * b) + c) ** p",
     }
 
-    if isinstance(params["a"], ee.image.Image) or isinstance(
-        params["b"], ee.image.Image
+    if (
+        isinstance(params["a"], ee.image.Image)
+        or isinstance(params["b"], ee.image.Image)
+        or isinstance(params["a"], ee.ee_number.Number)
+        or isinstance(params["b"], ee.ee_number.Number)
     ):
         kernels["RBF"] = "exp((-1.0 * (a - b) ** 2.0)/(2.0 * sigma ** 2.0))"
         result = params["a"].expression(kernels[kernel], params)

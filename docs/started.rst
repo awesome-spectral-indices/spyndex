@@ -79,8 +79,8 @@ with `dask <https://docs.dask.org/en/latest/>`_!
 
 Here is the list of the dask objects that you can use with spyndex:
 
-- `dask.array` (with `dask <https://docs.dask.org/en/latest/>`_)
-- `dask.dataframe` (with `dask <https://docs.dask.org/en/latest/>`_)
+- `dask.Array` (with `dask <https://docs.dask.org/en/latest/>`_)
+- `dask.Series` (with `dask <https://docs.dask.org/en/latest/>`_)
 
 This means that you can actually use spyndex in a lot of processes! For example, you can download a Sentinel-2 image with
 `sentinelsat <https://github.com/sentinelsat/sentinelsat>`_, open and read it with `rasterio <https://github.com/mapbox/rasterio>`_ and then compute 
