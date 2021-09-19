@@ -25,7 +25,8 @@ def computeIndex(
     Parameters
     ----------
     index : str | list[str]
-        Index or list of indices to compute.
+        Index or list of indices to compute. Check all available indices from the
+        `Awesome Spectral Indices Repository <https://github.com/davemlz/awesome-spectral-indices>`_.
     params: dict
         Parameters used as inputs for the computation. The input data must be compatible
         with Overloaded Operators. Some inputs' types supported are pandas series,
@@ -36,16 +37,17 @@ def computeIndex(
         repository and not from the local copy.
     returnOrigin : bool, default = True
         Whether to return multiple indices as an object with the same type as the inputs.
-        When pandas series are used, a pandas DataFrame is returned. When numpy arrays
-        are used, a numpy array is returned. When xarray DataArrays are used, a xarray
-        DataArray is returned. When Earth Engine Images are used, an Earth Engine Image
-        is returned. When Earth Engine Numbers are used, an Earth Engine List is
-        returned. When numeric objects are used, numeric objects are returned. When
-        numeric objects are used in combination with other objects, the type of the other
-        object is returned. When dask objects are used, dask objects are returned.
-        If false, a list is returned.
+            - :code:`pandas.Series`: Returns a :code:`pandas.DataFrame`.
+            - :code:`numpy.ndarray`: Returns a :code:`numpy.ndarray`.
+            - :code:`xarray.DataArray`: Returns a :code:`xarray.DataArray`.
+            - :code:`ee.Image`: Returns a :code:`ee.Image`.
+            - :code:`ee.Number`: Returns a :code:`ee.List`.
+            - :code:`dask.Array`: Returns a :code:`dask.Array`.
+            - :code:`dask.Series`: Returns a :code:`dask.DataFrame`.
+        When numeric objects are used in combination with other objects, the type of the 
+        other object is returned. If false, a list is returned.
     coordinate : str, default = "index"
-        Name of the coordinate used to concatenate DataArray objects when
+        Name of the coordinate used to concatenate :code:`xarray.DataArray` objects when
         :code:`returnOrigin = True`.
 
     Returns
@@ -53,12 +55,16 @@ def computeIndex(
     Any
         Computed Spectral Indices according to the inputs' type.
 
+    See Also
+    --------
+    computeKernel : Computes a kernel :code:`k(a,b)`.
+
     Examples
     --------
     Compute a Spectral Index by passing the required :code:`params` dictionary:
 
     >>> import spyndex
-    >>> idx = spyndex.computeIndex(
+    >>> spyndex.computeIndex(
     ...     index = "NDVI",
     ...     params = {
     ...         "N": 0.643,
@@ -229,21 +235,132 @@ def computeIndex(
 def computeKernel(kernel: str, params: dict) -> Any:
     """Computes a kernel :code:`k(a,b)`.
 
+    Kernel parameters are used for kernel indices like the kNDVI that requires the
+    :code:`kNN` (:code:`k(N,N)`) and :code:`kNR` (:code:`k(N,R)`) parameters.
+
     Parameters
     ----------
     kernel : str
         Kernel to use. One of 'linear', 'poly' or 'RBF'.
     params : dict
         Parameters to use for the kernel computation.
-        For kernel = 'linear', the parameters 'a' (band A) and 'b' (band B) must be
-        declared. For kernel = 'RBF', the parameters 'a' (band A), 'b' (band B) and
-        'sigma' (length-scale) must be declared. For kernel = 'poly', the parameters 'a'
-        (band A), 'b' (band B), 'p' (kernel degree) and 'c' (trade-off) must be declared.
+        For :code:`kernel = 'linear'`, the parameters 'a' (band A) and 'b' (band B) must 
+        be declared. For :code:`kernel = 'RBF'`, the parameters 'a' (band A), 'b' (band B) 
+        and 'sigma' (length-scale) must be declared. For :code:`kernel = 'poly'`, the 
+        parameters 'a' (band A), 'b' (band B), 'p' (kernel degree) and 'c' (trade-off) 
+        must be declared.
 
     Returns
     -------
     Any
         Computed kernel.
+
+    See Also
+    --------
+    computeIndex : Computes one or more Spectral Indices from the Awesome Spectral Indices 
+        list.
+
+    Examples
+    --------
+    Compute a kernel index with the help of :code:`spyndex.computeKernel()`:
+
+    >>> import spyndex
+    >>> spyndex.computeIndex(
+    ...     index = "kNDVI",
+    ...     params = {
+    ...         "kNN": 1.0,
+    ...         "kNR": spyndex.computeKernel(
+    ...             kernel = "RBF",
+    ...             params = {
+    ...                 "a" : 0.68, "b": 0.13, "sigma": (0.68 + 0.13) / 2
+    ...             }
+    ...         )
+    ...     }
+    ... )
+    0.4309459271768674
+
+    Use the polynomial kernel:
+
+    >>> import spyndex
+    >>> spyndex.computeIndex(
+    ...     index = "kNDVI",
+    ...     params = {
+    ...         "kNN": spyndex.computeKernel(
+    ...             kernel = "poly",
+    ...             params = {
+    ...                 "a" : 0.68,
+    ...                 "b": 0.68, 
+    ...                 "p": 2.0,
+    ...                 "c": spyndex.constants.c.default
+    ...             }
+    ...         ),
+    ...         "kNR": spyndex.computeKernel(
+    ...             kernel = "poly",
+    ...             params = {
+    ...                 "a" : 0.68,
+    ...                 "b": 0.13, 
+    ...                 "p": 2.0,
+    ...                 "c": spyndex.constants.c.default
+    ...             }
+    ...         )
+    ...     }
+    ... )
+    0.2870700138954041
+
+    Now let's try a :code:`numpy.ndarray`:
+
+    >>> import numpy as np
+    >>> R = np.random.normal(0.12,0.05,10000)
+    >>> N = np.random.normal(0.67,0.12,10000)
+    >>> spyndex.computeIndex(
+    ...     index = "kNDVI",
+    ...     params = {
+    ...         "kNN": 1.0,
+    ...         "kNR": spyndex.computeKernel(
+    ...             kernel = "RBF",
+    ...             params = {
+    ...                 "a" : N,
+    ...                 "b" : R,
+    ...                 "sigma" : np.mean([N,R],0)
+    ...            }           
+    ...         )
+    ...     }
+    ... )
+    array([0.36776416, 0.57727362, 0.5252302 , ..., 0.5209451 , 0.53162097,
+       0.67689597])
+
+    It's time for a :code:`pandas.DataFrame`!
+
+    >>> import pandas as pd
+    >>> R = np.random.normal(0.12,0.05,10000)
+    >>> N = np.random.normal(0.67,0.12,10000)
+    >>> df = pd.DataFrame({"Red":R,"NIR":N})
+    >>> spyndex.computeIndex(
+    ...     index = "kNDVI",
+    ...     params = {
+    ...         "kNN": 1.0,
+    ...         "kNR": spyndex.computeKernel(
+    ...             kernel = "RBF",
+    ...             params = {
+    ...                 "a" : df["NIR"],
+    ...                 "b" : df["Red"],
+    ...                 "sigma" : df.mean(1)
+    ...            }           
+    ...         )
+    ...     }
+    ... )
+    0       0.468294
+    1       0.535752
+    2       0.745249
+    3       0.402761
+    4       0.432528
+            ...   
+    9995    0.475168
+    9996    0.482034
+    9997    0.403363
+    9998    0.489537
+    9999    0.508163
+    Length: 10000, dtype: float64
     """
 
     kernels = {
