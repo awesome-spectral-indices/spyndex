@@ -14,7 +14,7 @@ compatible with python object classes that support `overloaded operators <https:
 (e.g. `numpy.ndarray <https://github.com/numpy/numpy>`_, `pandas.Series <https://github.com/pandas-dev/pandas>`_,
 `xarray.DataArray <https://github.com/pydata/xarray>`_).
 
-Some of the `spyndex` features are listed here:
+Some of the :code:`spyndex` features are listed here:
 
 - Access to Spectral Indices from the Awesome Spectral Indices list.
 - Multiple Spectral Indices computation.
@@ -57,36 +57,36 @@ Any python object class that supports overloaded operators can be used with spyn
 *"Hey... what do you mean by 'overloaded operators'?"*
 
 That's the million dollars' question! An object class that supports overloaded operators is the one that allows you to compute mathematical 
-operations using common operators (`+`, `-`, `/`, `*`, `**`) like `a + b`, `a + b * c` or `(a - b) / (a + b)`. You know the last one, right? That's 
+operations using common operators (:code:`+`, :code:`-`, :code:`/`, :code:`*`, :code:`**`) like :code:`a + b`, :code:`a + b * c` or :code:`(a - b) / (a + b)`. You know the last one, right? That's 
 the formula of the famous `NDVI <https://doi.org/10.1016/0034-4257(79)90013-0>`_.
 
 So, if you can use the overloaded operators with an object class, you can use that class with `spyndex`!
 
-> BE CAREFUL! Not all overloaded operators work as mathematical operators. In a `list` object class, the addition operator (`+`) concatenates two objects instead of performing an addition operation! So you must convert the `list` into a `numpy.ndarray` before using spyndex!
+> BE CAREFUL! Not all overloaded operators work as mathematical operators. In a :code:`list` object class, the addition operator (:code:`+`) concatenates two objects instead of performing an addition operation! So you must convert the :code:`list` into a :code:`numpy.ndarray` before using spyndex!
 
 Here is a little list of object classes that support mathematical overloaded operators:
 
-- `float` (Python Built-in type) or `numpy.float*` (with `numpy <https://github.com/numpy/numpy>`_)
-- `int` (Python Built-in type) or `numpy.int*` (with `numpy <https://github.com/numpy/numpy>`_)
-- `numpy.ndarray` (with `numpy <https://github.com/numpy/numpy>`_)
-- `pandas.Series` (with `pandas <https://github.com/pandas-dev/pandas>`_ or `geopandas <https://github.com/geopandas/geopandas>`_)
-- `xarray.DataArray` (with `xarray <https://github.com/pydata/xarray>`_)
-- `ee.Image` (with `earthengine-api <https://github.com/google/earthengine-api>`_ and `eemont <https://github.com/davemlz/eemont>`_)
-- `ee.Number` (with `earthengine-api <https://github.com/google/earthengine-api>`_ and `eemont <https://github.com/davemlz/eemont>`_)
+- :code:`float` (Python Built-in type) or :code:`numpy.float*` (with `numpy <https://github.com/numpy/numpy>`_)
+- :code:`int` (Python Built-in type) or :code:`numpy.int*` (with `numpy <https://github.com/numpy/numpy>`_)
+- :code:`numpy.ndarray` (with `numpy <https://github.com/numpy/numpy>`_)
+- :code:`pandas.Series` (with `pandas <https://github.com/pandas-dev/pandas>`_ or `geopandas <https://github.com/geopandas/geopandas>`_)
+- :code:`xarray.DataArray` (with `xarray <https://github.com/pydata/xarray>`_)
+- :code:`ee.Image` (with `earthengine-api <https://github.com/google/earthengine-api>`_ and `eemont <https://github.com/davemlz/eemont>`_)
+- :code:`ee.Number` (with `earthengine-api <https://github.com/google/earthengine-api>`_ and `eemont <https://github.com/davemlz/eemont>`_)
 
 And wait, there is more! If objects that support overloaded operatores can be used in spyndex, that means that you can work in **parallel**
 with `dask <https://docs.dask.org/en/latest/>`_!
 
 Here is the list of the dask objects that you can use with spyndex:
 
-- `dask.Array` (with `dask <https://docs.dask.org/en/latest/>`_)
-- `dask.Series` (with `dask <https://docs.dask.org/en/latest/>`_)
+- :code:`dask.Array` (with `dask <https://docs.dask.org/en/latest/>`_)
+- :code:`dask.Series` (with `dask <https://docs.dask.org/en/latest/>`_)
 
 This means that you can actually use spyndex in a lot of processes! For example, you can download a Sentinel-2 image with
 `sentinelsat <https://github.com/sentinelsat/sentinelsat>`_, open and read it with `rasterio <https://github.com/mapbox/rasterio>`_ and then compute 
 the desired spectral indices with `spyndex <https://github.com/davemlz/spyndex>`_. Or you can search through the Landsat-8 STAC in the 
 `Planetary Computer <https://planetarycomputer.microsoft.com/>`_ ecosystem using `pystac-client <https://github.com/stac-utils/pystac-client>`_,
-convert it to an `xarray.DataArray` with `stackstac <https://github.com/gjoseph92/stackstac>`_ and then compute spectral indices using
+convert it to an :code:`xarray.DataArray` with `stackstac <https://github.com/gjoseph92/stackstac>`_ and then compute spectral indices using
 `spyndex <https://github.com/davemlz/spyndex>`_ in parallel with `dask <https://docs.dask.org/en/latest/>`_! Amazing, right!?
 
 Installation
@@ -106,8 +106,8 @@ Exploring Spectral Indices
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Spectral Indices from the Awesome Spectral Indices list can be accessed through
-`spyndex.indices`. This is a `dictionary` where each one of the indices in the list
-can be accessed as well as their `attributes <https://github.com/davemlz/awesome-ee-spectral-indices#attributes>`_:
+:code:`spyndex.indices`. This is a :code:`dictionary` where each one of the indices in the 
+list can be accessed as well as their `attributes <https://github.com/davemlz/awesome-ee-spectral-indices#attributes>`_:
 
 .. code-block:: python
 
@@ -119,19 +119,77 @@ can be accessed as well as their `attributes <https://github.com/davemlz/awesome
     # NDVI index
     spyndex.indices["NDVI"]
 
+    # Or with dot notation
+    spyndex.indices.NDVI
+
     # Formula of the NDVI
     spyndex.indices["NDVI"]["formula"]
 
+    # Or with dot notation
+    spyndex.indices.NDVI.formula
+
     # Reference of the NDVI
     spyndex.indices["NDVI"]["reference"]
+
+    # Or with dot notation
+    spyndex.indices.NDVI.reference
+
+
+Default Values
+~~~~~~~~~~~~~~
+
+Some Spectral Indices require constant values in order to be computed. Default values
+can be accessed through :code:`spyndex.constants`. This is a :code:`Box` object
+where each one of the `constants <https://github.com/davemlz/awesome-spectral-indices#expressions>`_ can be
+accessed:
+
+.. code-block:: python
+
+    import spyndex
+
+    # All constants
+    spyndex.constants
+
+    # Canopy Background Adjustment
+    spyndex.constants["L"]
+
+    # Or with dot notation
+    spyndex.constants.L
+
+    # Default value
+    spyndex.constants["L"]["default"]
+
+    # Or with dot notation
+    spyndex.constants.L.default
+
+
+Band Parameters
+~~~~~~~~~~~~~~~
+
+The standard band parameters description can be accessed through :code:`spyndex.bands`. This is 
+a :code:`Box` object where each one of the `bands <https://github.com/davemlz/awesome-spectral-indices#expressions>`_ 
+can be accessed:
+
+.. code-block:: python
+
+    import spyndex
+
+    # All bands
+    spyndex.bands
+
+    # Blue band
+    spyndex.bands["B"]
+
+    # Or with dot notation
+    spyndex.bands.B
 
 
 One (or more) Spectral Indices Computation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Use the `computeIndex()` method to compute as many spectral indices as you want!
-The `index` parameter receives the spectral index or a list of spectral indices to
-compute, while the `params` parameter receives a dictionary with the
+Use the :code:`computeIndex()` method to compute as many spectral indices as you want!
+The :code:`index` parameter receives the spectral index or a list of spectral indices to
+compute, while the :code:`params` parameter receives a dictionary with the
 `required parameters <https://github.com/davemlz/awesome-ee-spectral-indices#expressions>`_
 for the spectral indices computation.
 
@@ -178,7 +236,8 @@ for the spectral indices computation.
 A `pandas.DataFrame`? Sure!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-No matter what kind of python object you're working with, it can be used with `spyndex` as long as it supports mathematical overloaded operators! 
+No matter what kind of python object you're working with, it can be used with 
+:code:`spyndex` as long as it supports mathematical overloaded operators! 
 
 .. code-block:: python
 
@@ -228,8 +287,10 @@ No matter what kind of python object you're working with, it can be used with `s
 Parallel Processing
 ~~~~~~~~~~~~~~~~~~~
 
-Parallel processing is possible with `spyndex` and `dask`! You can use `dask.array` or `dask.dataframe` objects to compute spectral indices with spyndex!
-If you're using `xarray`, you can also define a chunk size and work in parallel!
+Parallel processing is possible with :code:`spyndex` and :code:`dask`! You can use 
+:code:`dask.Array` or :code:`dask.DataFrame` objects to compute spectral indices with 
+spyndex! If you're using :code:`xarray`, you can also define a chunk size and work in 
+parallel!
 
 .. code-block:: python
 
@@ -267,8 +328,10 @@ If you're using `xarray`, you can also define a chunk size and work in parallel!
 Plotting Spectral Indices
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-All posible values of a spectral index can be visualized using `spyndex.plot.heatmap()`! This is a module that doesn't require data,
-just specify the index, the bands, and BOOM! Heatmap of all the possible values of the index!
+All posible values of a spectral index can be visualized using 
+:code:`spyndex.plot.heatmap()`! This is a module that doesn't require data,
+just specify the index, the bands, and BOOM! Heatmap of all the possible values of the 
+index!
 
 .. code-block:: python
 

@@ -165,7 +165,7 @@ pip install git+https://github.com/davemlz/spyndex
 ### Exploring Spectral Indices
 
 Spectral Indices from the Awesome Spectral Indices list can be accessed through
-`spyndex.indices`. This is a `dictionary` where each one of the indices in the list
+`spyndex.indices`. This is a `Box` object where each one of the indices in the list
 can be accessed as well as their [attributes](https://github.com/davemlz/awesome-ee-spectral-indices#attributes):
 
 ```python
@@ -177,11 +177,65 @@ spyndex.indices
 # NDVI index
 spyndex.indices["NDVI"]
 
+# Or with dot notation
+spyndex.indices.NDVI
+
 # Formula of the NDVI
 spyndex.indices["NDVI"]["formula"]
 
+# Or with dot notation
+spyndex.indices.NDVI.formula
+
 # Reference of the NDVI
 spyndex.indices["NDVI"]["reference"]
+
+# Or with dot notation
+spyndex.indices.NDVI.reference
+```
+
+### Default Values
+
+Some Spectral Indices require constant values in order to be computed. Default values
+can be accessed through `spyndex.constants`. This is a `Box` object where each one
+of the [constants](https://github.com/davemlz/awesome-spectral-indices#expressions) can be
+accessed:
+
+```python
+import spyndex
+
+# All constants
+spyndex.constants
+
+# Canopy Background Adjustment
+spyndex.constants["L"]
+
+# Or with dot notation
+spyndex.constants.L
+
+# Default value
+spyndex.constants["L"]["default"]
+
+# Or with dot notation
+spyndex.constants.L.default
+```
+
+### Band Parameters
+
+The standard band parameters description can be accessed through `spyndex.bands`. This is 
+a `Box` object where each one of the [bands](https://github.com/davemlz/awesome-spectral-indices#expressions) 
+can be accessed:
+
+```python
+import spyndex
+
+# All bands
+spyndex.bands
+
+# Blue band
+spyndex.bands["B"]
+
+# Or with dot notation
+spyndex.bands.B
 ```
 
 ### One (or more) Spectral Indices Computation

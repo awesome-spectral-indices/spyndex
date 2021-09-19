@@ -5,5 +5,5 @@ __author__ = "David Montero Loaiza <dml.mont@gmail.com>"
 __all__ = []
 
 from . import datasets, plot
-from .axioms import *
+from .axioms import bands, constants, indices
 from .spyndex import *
