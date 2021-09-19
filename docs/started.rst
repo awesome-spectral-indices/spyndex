@@ -233,6 +233,62 @@ for the spectral indices computation.
         </p>
     </embed>
 
+Kernel Indices Computation
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the :code:`computeKernel()` method to compute the required kernel for kernel indices like
+the kNDVI! The :code:`kernel` parameter receives the kernel to compute, while the :code:`params` 
+parameter receives a dictionary with the
+`required parameters <https://github.com/davemlz/awesome-ee-spectral-indices#expressions>`_
+for the kernel computation (e.g., :code:`a`, :code:`b` and :code:`sigma` for the RBF kernel).
+
+.. code-block:: python
+
+    import spyndex
+    import xarray as xr
+    import matplotlib.pyplot as plt
+    from rasterio import plot
+
+    # Open a dataset (in this case a xarray.DataArray)
+    snt = spyndex.datasets.open("sentinel")
+
+    # Scale the data (remember that the valid domain for reflectance is [0,1])
+    snt = snt / 10000
+
+    # Compute the kNDVI and the NDVI for comparison
+    idx = spyndex.computeIndex(
+        index = ["NDVI","kNDVI"],
+        params = {
+            # Parameters required for NDVI
+            "N": snt.sel(band = "B08"),
+            "R": snt.sel(band = "B04"),
+            # Parameters required for kNDVI
+            "kNN" : 1.0,
+            "kNR" : spyndex.computeKernel(
+                kernel = "RBF",
+                params = {
+                    "a": snt.sel(band = "B08"),
+                    "b": snt.sel(band = "B04"),
+                    "sigma": snt.sel(band = ["B08","B04"]).mean("band")
+                }),
+        }
+    )
+
+    # Plot the indices (and the RGB image for comparison)
+    fig, ax = plt.subplots(1,3,figsize = (15,15))
+    plot.show(snt.sel(band = ["B04","B03","B02"]).data / 0.3,ax = ax[0],title = "RGB")
+    plot.show(idx.sel(index = "NDVI"),ax = ax[1],title = "NDVI")
+    plot.show(idx.sel(index = "kNDVI"),ax = ax[2],title = "kNDVI")
+
+
+.. raw:: html
+
+    <embed>
+        <p align="center">
+            <a href="https://github.com/davemlz/spyndex"><img src="https://raw.githubusercontent.com/davemlz/spyndex/main/docs/_static/kNDVI.png" alt="sentinel kNDVI"></a>
+        </p>
+    </embed>
+
 A `pandas.DataFrame`? Sure!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
