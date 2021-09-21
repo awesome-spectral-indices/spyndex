@@ -61,4 +61,7 @@ Spyndex
          <img src="https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336" alt="isort">
       </a>
       </p>
+      <p align="center">
+         <a href="https://github.com/davemlz/spyndex"><img src="https://raw.githubusercontent.com/davemlz/spyndex/main/docs/_static/spyndex_flow2.png" alt="spyndex flow"></a>
+      </p>
    </embed>
