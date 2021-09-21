@@ -1,0 +1,10 @@
+dask
+earthengine-api
+eemont
+matplotlib
+numpy
+pandas
+python-box
+requests
+seaborn
+xarray
