@@ -54,12 +54,6 @@
 
 **Documentation**: [https://spyndex.readthedocs.io/](https://spyndex.readthedocs.io/)
 
-**PyPI**: *Under construction!*
-
-**conda-forge**: *Under construction!*
-
-**Tutorials**: *Under construction!*
-
 ---
 
 ## Overview
@@ -158,7 +152,13 @@ convert it to an `xarray.DataArray` with [stackstac](https://github.com/gjoseph9
 
 ## Installation
 
-Install the latest development version by running:
+Install the latest version from PyPI:
+
+```
+pip install spyndex
+```
+
+Install the latest dev version from GitHub by running:
 
 ```
 pip install git+https://github.com/davemlz/spyndex
