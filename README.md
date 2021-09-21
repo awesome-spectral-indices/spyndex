@@ -57,6 +57,8 @@
 
 **Documentation**: [https://spyndex.readthedocs.io/](https://spyndex.readthedocs.io/)
 
+**PyPI**: [https://pypi.org/project/spyndex/](https://pypi.org/project/spyndex/)
+
 ---
 
 ## Overview
