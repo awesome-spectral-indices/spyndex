@@ -5,3 +5,4 @@ sphinx-material
 pydata-sphinx-theme
 sphinx-copybutton
 google-auth<2.0dev
+protobuf<3.18.0,>=3.12.0
