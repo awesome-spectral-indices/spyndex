@@ -69,10 +69,6 @@ compatible with python object classes that support [overloaded operators](https:
 (e.g. [numpy.ndarray](https://github.com/numpy/numpy), [pandas.Series](https://github.com/pandas-dev/pandas),
 [xarray.DataArray](https://github.com/pydata/xarray)).
 
-<p align="center">
-  <a href="https://github.com/davemlz/spyndex"><img src="https://raw.githubusercontent.com/davemlz/spyndex/main/docs/_static/spyndex_flow2.png" alt="spyndex flow"></a>
-</p>
-
 Some of the `spyndex` features are listed here:
 
 - Access to Spectral Indices from the Awesome Spectral Indices list.
