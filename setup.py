@@ -21,6 +21,7 @@ setup(
     author_email="dml.mont@gmail.com",
     description="Awesome Spectral Indices in Python",
     long_description=read("README.md"),
+    long_description_content_type="text/markdown",
     packages=find_packages(exclude=("tests",)),
     package_data={"spyndex": ["data/*.json"]},
     install_requires=[
