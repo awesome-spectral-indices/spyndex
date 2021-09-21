@@ -29,6 +29,9 @@ Spyndex
          Planetary Computer</a> | <a href="https://docs.dask.org/en/latest/" target="_blank">
          Dask</a> </b>
       </p>
+      <a href='https://pypi.python.org/pypi/spyndex'>
+         <img src='https://img.shields.io/pypi/v/spyndex.svg' alt='PyPI' />
+      </a>
       <p align="center">
       <a href='https://spyndex.readthedocs.io/en/latest/?badge=latest'>
          <img src='https://readthedocs.org/projects/spyndex/badge/?version=latest' alt='Documentation Status' />

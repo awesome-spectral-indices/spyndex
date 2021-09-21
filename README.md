@@ -16,6 +16,9 @@
     Dask</a> </b>
 </p>
 <p align="center">
+<a href='https://pypi.python.org/pypi/spyndex'>
+    <img src='https://img.shields.io/pypi/v/spyndex.svg' alt='PyPI' />
+</a>
 <a href='https://spyndex.readthedocs.io/en/latest/?badge=latest'>
     <img src='https://readthedocs.org/projects/spyndex/badge/?version=latest' alt='Documentation Status' />
 </a>
