@@ -162,6 +162,18 @@ Install the latest version from PyPI:
 pip install spyndex
 ```
 
+Upgrade spyndex by running:
+
+```
+pip install -U spyndex
+```
+
+Install the latest version from conda-forge:
+
+```
+conda install -c conda-forge spyndex
+```
+
 Install the latest dev version from GitHub by running:
 
 ```
