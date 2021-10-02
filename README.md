@@ -62,6 +62,8 @@
 
 **PyPI**: [https://pypi.org/project/spyndex/](https://pypi.org/project/spyndex/)
 
+**Conda-forge**: [https://anaconda.org/conda-forge/spyndex](https://anaconda.org/conda-forge/spyndex)
+
 ---
 
 ## Overview
