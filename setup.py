@@ -25,9 +25,9 @@ setup(
     packages=find_packages(exclude=("tests",)),
     package_data={"spyndex": ["data/*.json"]},
     install_requires=[
-        "dask",
+        "dask>=2021.9.1",
         "earthengine-api",
-        "eemont",
+        "eemont>=0.2.5",
         "matplotlib",
         "numpy",
         "pandas",
