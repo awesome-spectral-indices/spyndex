@@ -29,10 +29,14 @@ Spyndex
          Planetary Computer</a> | <a href="https://docs.dask.org/en/latest/" target="_blank">
          Dask</a> </b>
       </p>
+      
+      <p align="center">
       <a href='https://pypi.python.org/pypi/spyndex'>
          <img src='https://img.shields.io/pypi/v/spyndex.svg' alt='PyPI' />
       </a>
-      <p align="center">
+      <a href='https://anaconda.org/conda-forge/spyndex'>
+         <img src='https://img.shields.io/conda/vn/conda-forge/spyndex.svg' alt='conda-forge' />
+      </a>
       <a href='https://spyndex.readthedocs.io/en/latest/?badge=latest'>
          <img src='https://readthedocs.org/projects/spyndex/badge/?version=latest' alt='Documentation Status' />
       </a>

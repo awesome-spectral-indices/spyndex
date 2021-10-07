@@ -19,6 +19,9 @@
 <a href='https://pypi.python.org/pypi/spyndex'>
     <img src='https://img.shields.io/pypi/v/spyndex.svg' alt='PyPI' />
 </a>
+<a href='https://anaconda.org/conda-forge/spyndex'>
+    <img src='https://img.shields.io/conda/vn/conda-forge/spyndex.svg' alt='conda-forge' />
+</a>
 <a href='https://spyndex.readthedocs.io/en/latest/?badge=latest'>
     <img src='https://readthedocs.org/projects/spyndex/badge/?version=latest' alt='Documentation Status' />
 </a>
@@ -58,6 +61,8 @@
 **Documentation**: [https://spyndex.readthedocs.io/](https://spyndex.readthedocs.io/)
 
 **PyPI**: [https://pypi.org/project/spyndex/](https://pypi.org/project/spyndex/)
+
+**Conda-forge**: [https://anaconda.org/conda-forge/spyndex](https://anaconda.org/conda-forge/spyndex)
 
 ---
 
@@ -157,6 +162,18 @@ Install the latest version from PyPI:
 
 ```
 pip install spyndex
+```
+
+Upgrade spyndex by running:
+
+```
+pip install -U spyndex
+```
+
+Install the latest version from conda-forge:
+
+```
+conda install -c conda-forge spyndex
 ```
 
 Install the latest dev version from GitHub by running:

@@ -92,7 +92,28 @@ convert it to an :code:`xarray.DataArray` with `stackstac <https://github.com/gj
 Installation
 ------------
 
-Install the latest development version by running:
+Install the latest version from PyPI:
+
+.. code-block::
+    
+    pip install spyndex
+
+
+Upgrade spyndex by running:
+
+.. code-block::
+    
+    pip install -U spyndex
+
+
+Install the latest version from conda-forge:
+
+.. code-block::
+
+    conda install -c conda-forge spyndex
+
+
+Install the latest dev version from GitHub by running:
 
 .. code-block::
 
