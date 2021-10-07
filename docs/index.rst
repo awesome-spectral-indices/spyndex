@@ -5,6 +5,7 @@
    started
    reference
    contributing
+   changelog
 
 Spyndex
 =======
