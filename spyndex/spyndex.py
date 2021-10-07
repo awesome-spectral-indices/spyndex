@@ -205,7 +205,7 @@ def computeIndex(
             raise Exception(f"{idx} is not a valid Spectral Index!")
         else:
             _check_params(idx, params)
-            result.append(eval(indices[idx]["formula"], params))
+            result.append(eval(indices[idx]["formula"], {}, params))
 
     if len(result) == 1:
         result = result[0]
