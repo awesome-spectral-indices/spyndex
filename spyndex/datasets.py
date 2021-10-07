@@ -34,7 +34,7 @@ def open(dataset: str) -> Any:
     Dimensions without coordinates: x, y
 
     Open the :code:`spectral` dataset:
-    
+
     >>> spt = spyndex.datasets.open("spectral")
     >>> spt.dtypes
     SR_B1     float64

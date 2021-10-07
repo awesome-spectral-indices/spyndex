@@ -44,7 +44,7 @@ def computeIndex(
             - :code:`ee.Number`: Returns a :code:`ee.List`.
             - :code:`dask.Array`: Returns a :code:`dask.Array`.
             - :code:`dask.Series`: Returns a :code:`dask.DataFrame`.
-        When numeric objects are used in combination with other objects, the type of the 
+        When numeric objects are used in combination with other objects, the type of the
         other object is returned. If false, a list is returned.
     coordinate : str, default = "index"
         Name of the coordinate used to concatenate :code:`xarray.DataArray` objects when
@@ -216,7 +216,7 @@ def computeIndex(
             elif isinstance(result[0], pd.core.series.Series):
                 result = pd.DataFrame(dict(zip(index, result)))
             elif isinstance(result[0], xr.core.dataarray.DataArray):
-                result = [x.reset_coords(drop = True) for x in result]
+                result = [x.reset_coords(drop=True) for x in result]
                 result = xr.concat(result, dim=coordinate).assign_coords(
                     {coordinate: index}
                 )
@@ -245,10 +245,10 @@ def computeKernel(kernel: str, params: dict) -> Any:
         Kernel to use. One of 'linear', 'poly' or 'RBF'.
     params : dict
         Parameters to use for the kernel computation.
-        For :code:`kernel = 'linear'`, the parameters 'a' (band A) and 'b' (band B) must 
-        be declared. For :code:`kernel = 'RBF'`, the parameters 'a' (band A), 'b' (band B) 
-        and 'sigma' (length-scale) must be declared. For :code:`kernel = 'poly'`, the 
-        parameters 'a' (band A), 'b' (band B), 'p' (kernel degree) and 'c' (trade-off) 
+        For :code:`kernel = 'linear'`, the parameters 'a' (band A) and 'b' (band B) must
+        be declared. For :code:`kernel = 'RBF'`, the parameters 'a' (band A), 'b' (band B)
+        and 'sigma' (length-scale) must be declared. For :code:`kernel = 'poly'`, the
+        parameters 'a' (band A), 'b' (band B), 'p' (kernel degree) and 'c' (trade-off)
         must be declared.
 
     Returns
@@ -258,7 +258,7 @@ def computeKernel(kernel: str, params: dict) -> Any:
 
     See Also
     --------
-    computeIndex : Computes one or more Spectral Indices from the Awesome Spectral Indices 
+    computeIndex : Computes one or more Spectral Indices from the Awesome Spectral Indices
         list.
 
     Examples
@@ -290,7 +290,7 @@ def computeKernel(kernel: str, params: dict) -> Any:
     ...             kernel = "poly",
     ...             params = {
     ...                 "a" : 0.68,
-    ...                 "b": 0.68, 
+    ...                 "b": 0.68,
     ...                 "p": 2.0,
     ...                 "c": spyndex.constants.c.default
     ...             }
@@ -299,7 +299,7 @@ def computeKernel(kernel: str, params: dict) -> Any:
     ...             kernel = "poly",
     ...             params = {
     ...                 "a" : 0.68,
-    ...                 "b": 0.13, 
+    ...                 "b": 0.13,
     ...                 "p": 2.0,
     ...                 "c": spyndex.constants.c.default
     ...             }
@@ -323,7 +323,7 @@ def computeKernel(kernel: str, params: dict) -> Any:
     ...                 "a" : N,
     ...                 "b" : R,
     ...                 "sigma" : np.mean([N,R],0)
-    ...            }           
+    ...            }
     ...         )
     ...     }
     ... )
@@ -346,7 +346,7 @@ def computeKernel(kernel: str, params: dict) -> Any:
     ...                 "a" : df["NIR"],
     ...                 "b" : df["Red"],
     ...                 "sigma" : df.mean(1)
-    ...            }           
+    ...            }
     ...         )
     ...     }
     ... )
@@ -355,7 +355,7 @@ def computeKernel(kernel: str, params: dict) -> Any:
     2       0.745249
     3       0.402761
     4       0.432528
-            ...   
+            ...
     9995    0.475168
     9996    0.482034
     9997    0.403363
