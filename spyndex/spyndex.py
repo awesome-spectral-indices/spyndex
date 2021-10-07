@@ -216,6 +216,7 @@ def computeIndex(
             elif isinstance(result[0], pd.core.series.Series):
                 result = pd.DataFrame(dict(zip(index, result)))
             elif isinstance(result[0], xr.core.dataarray.DataArray):
+                result = [x.reset_coords(drop = True) for x in result]
                 result = xr.concat(result, dim=coordinate).assign_coords(
                     {coordinate: index}
                 )
