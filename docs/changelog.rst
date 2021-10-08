@@ -1,6 +1,14 @@
 Changelog
 =========
 
+v0.0.3 (dev)
+------------
+
+Improvements
+~~~~~~~~~~~~
+
+- Added `gamma` to `spyndex.constants`. 
+
 v0.0.2
 ------
 

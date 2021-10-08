@@ -69,6 +69,10 @@ constants = Constants(
             "description": "Weighting coefficient used for WDRVI",
             "default": 0.1,
         },
+        "gamma": {
+            "description": "Weighting coefficient used for ARVI",
+            "default": 1.0,
+        },
         "sla": {"description": "Soil line slope", "default": 1.0},
         "slb": {"description": "Soil line intercept", "default": 0.0},
         "sigma": {
