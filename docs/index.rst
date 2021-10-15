@@ -4,6 +4,7 @@
   
    started
    reference
+   tutorials
    contributing
    changelog
 
