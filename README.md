@@ -64,6 +64,8 @@
 
 **Conda-forge**: [https://anaconda.org/conda-forge/spyndex](https://anaconda.org/conda-forge/spyndex)
 
+**Tutorials**: [https://spyndex.readthedocs.io/en/latest/tutorials.html](https://spyndex.readthedocs.io/en/latest/tutorials.html)
+
 ---
 
 ## Overview
