@@ -14,7 +14,7 @@ def read(filename):
 
 setup(
     name="spyndex",
-    version="0.0.2",
+    version="0.0.3",
     url="https://github.com/davemlz/spyndex",
     license="MIT",
     author="David Montero Loaiza",
