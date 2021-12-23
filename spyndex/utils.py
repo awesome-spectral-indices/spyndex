@@ -52,7 +52,7 @@ def _get_indices(online=False):
     return indices["SpectralIndices"]
 
 
-def _check_params(index: str, params: dict):
+def _check_params(index: str, params: dict, indices: dict):
     """Checks if the parameters dictionary contains all required bands for the index
     computation.
 
@@ -62,12 +62,14 @@ def _check_params(index: str, params: dict):
         Index to check.
     params : dict
         Parameters dictionary to check.
+    indices : dict
+        Indices dictionary to check.
 
     Returns
     -------
     None
     """
-    for band in spyndex.indices[index]["bands"]:
+    for band in indices[index]["bands"]:
         if band not in list(params.keys()):
             raise Exception(
                 f"'{band}' is missing in the parameters for {index} computation!"
