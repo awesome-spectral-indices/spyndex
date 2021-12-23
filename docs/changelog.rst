@@ -1,6 +1,15 @@
 Changelog
 =========
 
+v0.0.4
+------
+
+Improvements
+~~~~~~~~~~~~
+
+- Awesome Spectral Indices list upgraded to v0.0.3.
+- Fixed :code:`online` argument.
+
 v0.0.3
 ------
 
