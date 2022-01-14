@@ -6,3 +6,5 @@ Tutorials
 
     tutorials/python_builtin.ipynb
     tutorials/numpy.ipynb
+    tutorials/pandas.ipynb
+    tutorials/xarray.ipynb
