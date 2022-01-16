@@ -8,3 +8,4 @@ Tutorials
     tutorials/numpy.ipynb
     tutorials/pandas.ipynb
     tutorials/xarray.ipynb
+    tutorials/geopandas.ipynb
