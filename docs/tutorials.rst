@@ -9,3 +9,4 @@ Tutorials
     tutorials/pandas.ipynb
     tutorials/xarray.ipynb
     tutorials/geopandas.ipynb
+    tutorials/dask.ipynb
