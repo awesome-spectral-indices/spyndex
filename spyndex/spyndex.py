@@ -54,7 +54,7 @@ def computeIndex(
         Parameters used as inputs for the computation as keyword pairs. Ignored when
         params is defined.
 
-    .. versionadded:: 0.0.5
+        .. versionadded:: 0.0.5
 
     Returns
     -------
@@ -268,7 +268,7 @@ def computeKernel(kernel: str, params: Optional[dict] = None, **kwargs) -> Any:
         Parameters used as inputs for the computation as keyword pairs. Ignored when
         params is defined.
 
-    .. versionadded:: 0.0.5
+        .. versionadded:: 0.0.5
 
     Returns
     -------
