@@ -15,10 +15,11 @@ from .utils import _check_params, _get_indices
 
 def computeIndex(
     index: Union[str, List[str]],
-    params: dict,
+    params: Optional[dict] = None,
     online: bool = False,
     returnOrigin: bool = True,
     coordinate: str = "index",
+    **kwargs,
 ) -> Any:
     """Computes one or more Spectral Indices from the Awesome Spectral Indices list.
 
@@ -27,7 +28,7 @@ def computeIndex(
     index : str | list[str]
         Index or list of indices to compute. Check all available indices from the
         `Awesome Spectral Indices Repository <https://github.com/davemlz/awesome-spectral-indices>`_.
-    params: dict
+    params: dict, default = None
         Parameters used as inputs for the computation. The input data must be compatible
         with Overloaded Operators. Some inputs' types supported are pandas series,
         numpy arrays, xarray objects and numeric objects. Earth Engine objects are also
@@ -49,6 +50,11 @@ def computeIndex(
     coordinate : str, default = "index"
         Name of the coordinate used to concatenate :code:`xarray.DataArray` objects when
         :code:`returnOrigin = True`.
+    kwargs:
+        Parameters used as inputs for the computation as keyword pairs. Ignored when
+        params is defined.
+
+    .. versionadded:: 0.0.5
 
     Returns
     -------
@@ -73,7 +79,12 @@ def computeIndex(
     ... )
     0.5721271393643031
 
-    Two or more Spectral Indices can be computed:
+    Compute a Spectral Index by passing the required :code:`params` as keyword pairs:
+
+    >>> spyndex.computeIndex("NDVI",N = 0.643,R = 0.175)
+    0.5721271393643031
+
+    Two or more Spectral Indices can also be computed:
 
     >>> spyndex.computeIndex(
     ...     index = ["NDVI","SAVI"],
@@ -193,6 +204,9 @@ def computeIndex(
     ... ).compute()
     """
 
+    if params is None:
+        params = kwargs
+
     if not isinstance(index, list):
         index = [index]
 
@@ -233,7 +247,7 @@ def computeIndex(
     return result
 
 
-def computeKernel(kernel: str, params: dict) -> Any:
+def computeKernel(kernel: str, params: Optional[dict] = None, **kwargs) -> Any:
     """Computes a kernel :code:`k(a,b)`.
 
     Kernel parameters are used for kernel indices like the kNDVI that requires the
@@ -250,6 +264,11 @@ def computeKernel(kernel: str, params: dict) -> Any:
         and 'sigma' (length-scale) must be declared. For :code:`kernel = 'poly'`, the
         parameters 'a' (band A), 'b' (band B), 'p' (kernel degree) and 'c' (trade-off)
         must be declared.
+    kwargs:
+        Parameters used as inputs for the computation as keyword pairs. Ignored when
+        params is defined.
+
+    .. versionadded:: 0.0.5
 
     Returns
     -------
@@ -277,6 +296,16 @@ def computeKernel(kernel: str, params: dict) -> Any:
     ...             }
     ...         )
     ...     }
+    ... )
+    0.4309459271768674
+
+    Parameters can also be passed as keyword pairs:
+
+    >>> import spyndex
+    >>> spyndex.computeIndex(
+    ...     index = "kNDVI",
+    ...     kNN = 1.0,
+    ...     kNR = spyndex.computeKernel("RBF",a = 0.68,b = 0.13,sigma = (0.68 + 0.13) / 2)
     ... )
     0.4309459271768674
 
@@ -363,6 +392,9 @@ def computeKernel(kernel: str, params: dict) -> Any:
     9999    0.508163
     Length: 10000, dtype: float64
     """
+
+    if params is None:
+        params = kwargs
 
     kernels = {
         "linear": "a * b",
