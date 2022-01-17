@@ -73,6 +73,10 @@ constants = Constants(
             "description": "Weighting coefficient used for ARVI",
             "default": 1.0,
         },
+        "omega": {
+            "description": "Weighting coefficient used for MBWI",
+            "default": 2.0,
+        },
         "sla": {"description": "Soil line slope", "default": 1.0},
         "slb": {"description": "Soil line intercept", "default": 0.0},
         "sigma": {
