@@ -20,16 +20,16 @@ and can be called from it (e.g., :code:`spyndex.computeIndex()`):
 spyndex.axioms
 ---------------
 
-Axioms module of spyndex. Automatically loaded with :code:`import spyndex`. Spectral Indices
+Axioms module of spyndex. Automatically loaded with :code:`import spyndex`. Spectral Indices, Constants and Bands
 can be accessed from the module (e.g. :code:`spyndex.indices.NDVI`):
 
 .. currentmodule:: spyndex.axioms
 
 .. autosummary::
-   :toctree: stubs
 
    SpectralIndices
    SpectralIndex
+
 
 spyndex.datasets
 ----------------
