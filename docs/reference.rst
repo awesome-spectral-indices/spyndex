@@ -17,6 +17,20 @@ and can be called from it (e.g., :code:`spyndex.computeIndex()`):
    computeIndex
    computeKernel
 
+spyndex.axioms
+---------------
+
+Axioms module of spyndex. Automatically loaded with :code:`import spyndex`. Spectral Indices
+can be accessed from the module (e.g. :code:`spyndex.indices.NDVI`):
+
+.. currentmodule:: spyndex.axioms
+
+.. autosummary::
+   :toctree: stubs
+
+   SpectralIndices
+   SpectralIndex
+
 spyndex.datasets
 ----------------
 
