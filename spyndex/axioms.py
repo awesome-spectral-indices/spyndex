@@ -169,8 +169,29 @@ indices = _create_indices()
 
 
 class Bands(Box):
+    """Bands object.
+
+    This object allows interaction with the bands of Spectral Indices in the
+    Awesome Spectral Indices list according to their standard names.
+
+    Examples
+    --------
+    >>> import spyndex
+    >>> spyndex.bands
+    Bands({'A': 'Aerosols band', 'B': 'Blue band', ..., 'T2': 'Thermal band 2'})
+    >>> spyndex.bands.B
+    'Blue band'
+    """
+
     def __repr__(self):
+        """Machine readable output of the Bands object."""
+
         return f"Bands({self})"
+
+    def __str__(self):
+        """Human readable output of the Bands object."""
+
+        return f"{self}"
 
 
 bands = Bands(
