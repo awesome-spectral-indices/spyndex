@@ -54,6 +54,24 @@ class Test(unittest.TestCase):
         self.assertIsInstance(result, list)
         self.assertIsInstance(result[0], float)
 
+    def test_numeric_class(self):
+        """Test the computeIndex() method"""
+        result = spyndex.indices.NDVI.compute(
+            {
+                "N": 0.6,
+                "R": 0.1,
+            },
+        )
+        self.assertIsInstance(result, float)
+
+    def test_numeric_class_kwargs(self):
+        """Test the computeIndex() method"""
+        result = spyndex.indices.NDVI.compute(
+            N = 0.6,
+            R = 0.1,
+        )
+        self.assertIsInstance(result, float)
+
     def test_numeric_kwargs(self):
         """Test the computeIndex() method"""
         result = spyndex.computeIndex(
