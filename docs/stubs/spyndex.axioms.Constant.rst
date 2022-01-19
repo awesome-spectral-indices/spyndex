@@ -9,11 +9,11 @@
 
    .. autosummary::
    
-      ~SpectralIndex.description
-      ~SpectralIndex.long_name
-      ~SpectralIndex.short_name
-      ~SpectralIndex.standard
-      ~SpectralIndex.default
-      ~SpectralIndex.value   
+      ~Constant.description
+      ~Constant.long_name
+      ~Constant.short_name
+      ~Constant.standard
+      ~Constant.default
+      ~Constant.value   
    
    
