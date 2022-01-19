@@ -30,6 +30,8 @@ can be accessed from the module (e.g. :code:`spyndex.indices.NDVI`):
    SpectralIndices
    SpectralIndex
    Bands
+   Constants
+   Constant
 
 
 spyndex.datasets
