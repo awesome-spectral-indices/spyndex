@@ -215,52 +215,172 @@ bands = Bands(
 
 
 class Constants(Box):
+    """Constants object.
+
+    This object allows interaction with the list of constants of the Spectral Indices in 
+    the Awesome Spectral Indices list.
+
+    See Also
+    --------
+    Constant : Constant object.
+    Bands : Bands object.
+    SpectralIndex: Spectral Index object.
+    SpectralIndices : Spectral Indices object.
+
+    Examples
+    --------
+    >>> import spyndex
+    >>> spyndex.constants
+    Constants(['L', 'g', 'C1', ..., 'sigma', 'p', 'c'])
+    """
+
     def __repr__(self):
-        keys = list(self.keys())
-        if "description" in keys:
-            toShow = f"{self['description']} (default = {self['default']})"
-        else:
-            toShow = f"Constants({list(self.keys())})"
-        return toShow
+        return f"Constants({list(self.keys())})"
 
 
-constants = Constants(
-    {
-        "L": {"description": "Canopy background adjustment", "default": 1.0},
-        "g": {"description": "Gain factor", "default": 2.5},
+class Constant(object):
+    """Constant object.
+
+    This object allows interaction with specific constants in the the list of constants of
+    the Spectral Indices in  the Awesome Spectral Indices list. Attributes of the 
+    Constant can be accessed using this object.
+
+    See Also
+    --------
+    Constants : Constants object.
+    Bands : Bands object.
+    SpectralIndex: Spectral Index object.
+    SpectralIndices : Spectral Indices object.
+
+    Examples
+    --------
+    >>> import spyndex
+    >>> spyndex.constants.L
+    Constant(L: Canopy background adjustment)
+        * Default value: 1.0
+    >>> spyndex.constants.L.default
+    1.0
+    """
+
+    def __init__(self, constant: dict):
+
+        self.description = constant["description"]
+        """Description/Name of the Constant."""
+
+        self.long_name = constant["description"]
+        """Description/Name of the Constant. Equivalent to :code:`description`."""
+
+        self.short_name = constant["short_name"]
+        """Short name of the Constant."""
+
+        self.standard = constant["short_name"]
+        """Short name of the Constant. Equivalent to :code:`short_name`."""
+
+        self.default = constant["default"]
+        """Default value of the Constant."""
+
+        self.value = constant["default"]
+        """Default value of the Constant. Equivalent to :code:`default`."""
+
+    def __repr__(self):
+        """Machine readable output of the Constant."""
+
+        result = f"""Constant({self.short_name}: {self.long_name})
+        * Default value: {self.default}
+        """    
+
+        return result
+
+    def __str__(self):
+        """Human readable output of the Constant."""
+
+        result = f"""{self.short_name}: {self.long_name}
+        * Default value: {self.default}
+        """    
+
+        return result
+
+
+def _create_constants():
+    """Creates the set of Constants locally available."""
+
+    constants = {
+        "L": {
+            "short_name": "L",
+            "description": "Canopy background adjustment",
+            "default": 1.0,
+        },
+        "g": {
+            "short_name": "g",
+            "description": "Gain factor",
+            "default": 2.5
+        },
         "C1": {
+            "short_name": "C1",
             "description": "Coefficient 1 for the aerosol resistance term",
             "default": 6.0,
         },
         "C2": {
+            "short_name": "C2",
             "description": "Coefficient 2 for the aerosol resistance term",
             "default": 7.5,
         },
-        "cexp": {"description": "Exponent used for OCVI", "default": 1.16},
-        "nexp": {"description": "Exponent used for GDVI", "default": 2.0},
+        "cexp": {
+            "short_name": "cexp",
+            "description": "Exponent used for OCVI",
+            "default": 1.16,
+        },
+        "nexp": {
+            "short_name": "nexp",
+            "description": "Exponent used for GDVI",
+            "default": 2.0,
+        },
         "alpha": {
+            "short_name": "alpha",
             "description": "Weighting coefficient used for WDRVI",
             "default": 0.1,
         },
         "gamma": {
+            "short_name": "gamma",
             "description": "Weighting coefficient used for ARVI",
             "default": 1.0,
         },
         "omega": {
+            "short_name": "omega",
             "description": "Weighting coefficient used for MBWI",
             "default": 2.0,
         },
-        "sla": {"description": "Soil line slope", "default": 1.0},
-        "slb": {"description": "Soil line intercept", "default": 0.0},
+        "sla": {
+            "short_name": "sla",
+            "description": "Soil line slope",
+            "default": 1.0,
+        },
+        "slb": {
+            "short_name": "slb",
+            "description": "Soil line intercept",
+            "default": 0.0,
+        },
         "sigma": {
+            "short_name": "sigma",
             "description": "Length-scale parameter in the RBF kernel",
             "default": 0.5,
         },
-        "p": {"description": "Kernel degree in the polynomial kernel", "default": 2.0},
+        "p": {
+            "short_name": "p",
+            "description": "Kernel degree in the polynomial kernel",
+            "default": 2.0,
+        },
         "c": {
+            "short_name": "c",
             "description": "Trade-off parameter in the polynomial kernel",
             "default": 1.0,
         },
-    },
-    frozen_box=True,
-)
+    }
+    constants_class = {}
+    for key, value in constants.items():
+        constants_class[key] = Constant(value)
+
+    return Constants(constants_class,frozen_box = True)
+
+
+constants = _create_constants()
