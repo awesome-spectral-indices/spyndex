@@ -48,6 +48,15 @@ Check the simple usage of spyndex here:
         }
     )
 
+    # Or
+
+    idx = spyndex.computeIndex(
+        index = ["NDVI","SAVI"],
+        N = da.sel(band = "NIR"),
+        R = da.sel(band = "Red"),
+        L = 0.5
+    )
+
 
 How does it work?
 -----------------
