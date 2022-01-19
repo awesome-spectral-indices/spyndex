@@ -20,8 +20,9 @@ and can be called from it (e.g., :code:`spyndex.computeIndex()`):
 spyndex.axioms
 ---------------
 
-Axioms module of spyndex. Automatically loaded with :code:`import spyndex`. Spectral Indices, Constants and Bands
-can be accessed from the module (e.g. :code:`spyndex.indices.NDVI`):
+Axioms module of spyndex. Automatically loaded with :code:`import spyndex`. Spectral 
+Indices, Constants and Bands can be accessed from the module 
+(e.g. :code:`spyndex.indices.NDVI`, `spyndex.bands.B`, `spyndex.constants.L`):
 
 .. currentmodule:: spyndex.axioms
 
@@ -30,6 +31,8 @@ can be accessed from the module (e.g. :code:`spyndex.indices.NDVI`):
    SpectralIndices
    SpectralIndex
    Bands
+   Band
+   PlatformBand
    Constants
    Constant
 
