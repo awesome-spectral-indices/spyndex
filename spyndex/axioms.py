@@ -235,7 +235,14 @@ class Constants(Box):
     """
 
     def __repr__(self):
+        """Machine readable output of the Constants object."""
+
         return f"Constants({list(self.keys())})"
+
+    def __str__(self):
+        """Human readable output of the Constants object."""
+
+        return f"{list(self.keys())}"
 
 
 class Constant(object):
