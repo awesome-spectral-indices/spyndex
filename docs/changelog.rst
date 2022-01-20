@@ -1,6 +1,28 @@
 Changelog
 =========
 
+v0.0.5 (dev)
+------------
+
+New Features
+~~~~~~~~~~~~
+
+- The :code:`SpectralIndices` class was created.
+- The :code:`SpectralIndex` class was created.
+- The :code:`Bands` class was created.
+- The :code:`Band` class was created.
+- The :code:`PlatformBand` class was created.
+- The :code:`Constants` class was created.
+- The :code:`Constant` class was created.
+
+Improvements
+~~~~~~~~~~~~
+
+- Awesome Spectral Indices list upgraded to v0.0.4.
+- Added :code:`kwargs` argument to :code:`computeIndex`.
+- Added :code:`kwargs` argument to :code:`computeKernel`.
+- Added :code:`omega` to :code:`spyndex.constants`.
+
 v0.0.4
 ------
 
@@ -16,7 +38,7 @@ v0.0.3
 Improvements
 ~~~~~~~~~~~~
 
-- Added `gamma` to `spyndex.constants`. 
+- Added :code:`gamma` to :code:`spyndex.constants`. 
 
 v0.0.2
 ------
