@@ -11,3 +11,4 @@ Tutorials
     tutorials/geopandas.ipynb
     tutorials/dask.ipynb
     tutorials/ee.ipynb
+    tutorials/pc.ipynb
