@@ -1022,6 +1022,31 @@ def _create_constants():
             "description": "Weighting coefficient used for MBWI",
             "default": 2.0,
         },
+        "k": {
+            "short_name": "k",
+            "description": "Slope parameter by soil used for NIRvH2",
+            "default": 0.0,
+        },
+        "PAR": {
+            "short_name": "PAR",
+            "description": "Photosynthetically Active Radiation",
+            "default": None,
+        },
+        "lambdaG": {
+            "short_name": "lambdaG",
+            "description": "Green wavelength (nm) used for NDGI",
+            "default": None,
+        },
+        "lambdaR": {
+            "short_name": "lambdaR",
+            "description": "Red wavelength (nm) used for NIRvH2 and NDGI",
+            "default": None,
+        },
+        "lambdaN": {
+            "short_name": "lambdaN",
+            "description": "NIR wavelength (nm) used for NIRvH2 and NDGI",
+            "default": None,
+        },
         "sla": {
             "short_name": "sla",
             "description": "Soil line slope",
