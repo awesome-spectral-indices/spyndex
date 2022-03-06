@@ -22,6 +22,9 @@ Improvements
 - Added :code:`kwargs` argument to :code:`computeIndex`.
 - Added :code:`kwargs` argument to :code:`computeKernel`.
 - Added :code:`omega` to :code:`spyndex.constants`.
+- Added :code:`k` to :code:`spyndex.constants`.
+- Added :code:`PAR` to :code:`spyndex.constants`.
+- Added :code:`lambdaG`, :code:`lambdaR` and :code:`lambdaN` to :code:`spyndex.constants`.
 
 v0.0.4
 ------
