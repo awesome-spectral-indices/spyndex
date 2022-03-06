@@ -18,7 +18,7 @@ New Features
 Improvements
 ~~~~~~~~~~~~
 
-- Awesome Spectral Indices list upgraded to v0.0.4.
+- Awesome Spectral Indices list upgraded to v0.0.6.
 - Added :code:`kwargs` argument to :code:`computeIndex`.
 - Added :code:`kwargs` argument to :code:`computeKernel`.
 - Added :code:`omega` to :code:`spyndex.constants`.
