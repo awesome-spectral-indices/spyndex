@@ -113,9 +113,11 @@ idx = spyndex.computeIndex(
         "L": 0.5
     }
 )
+```
 
-# Or
+Bands can also be passed as keywords arguments:
 
+```python
 idx = spyndex.computeIndex(
     index = ["NDVI","SAVI"],
     N = da.sel(band = "NIR"),
@@ -123,6 +125,16 @@ idx = spyndex.computeIndex(
     L = 0.5
 )
 ```
+
+And indices can be computed from their class:
+
+```python
+idx = spyndex.indices.NDVI.compute(
+    N = da.sel(band = "NIR"),
+    R = da.sel(band = "Red"),
+)
+```
+
 
 ## How does it work?
 
