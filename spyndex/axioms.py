@@ -1012,6 +1012,11 @@ def _create_constants():
             "description": "Weighting coefficient used for WDRVI",
             "default": 0.1,
         },
+        "beta": {
+            "short_name": "beta",
+            "description": "Calibration parameter used for NDSInw",
+            "default": 0.05,
+        },
         "gamma": {
             "short_name": "gamma",
             "description": "Weighting coefficient used for ARVI",
