@@ -36,6 +36,11 @@ indices = ["NDVI", "GNDVI", "SAVI", "EVI"]
 class Test(unittest.TestCase):
     """Tests for the spyndex package."""
 
+    def test_catalogue_indices(self):
+        """Test the indices class"""
+        self.assertIsInstance(spyndex.indices.NDVI.platforms, list)
+        self.assertIsInstance(spyndex.indices.NDVI.application_domain, str)
+
     def test_numeric(self):
         """Test the computeIndex() method"""
         result = spyndex.computeIndex(
