@@ -48,7 +48,7 @@ class SpectralIndex(object):
     >>> import spyndex
     >>> spyndex.indices.NIRv
     SpectralIndex(NIRv: Near-Infrared Reflectance of Vegetation)
-        * Type: vegetation
+        * Application Domain: vegetation
         * Bands/Parameters: ('N', 'R')
         * Formula: ((N-R)/(N+R))*N
         * Reference: https://doi.org/10.1126/sciadv.1602244
@@ -69,8 +69,8 @@ class SpectralIndex(object):
         self.bands = index["bands"]
         """Required bands and parameters for the Spectral Index computation."""
 
-        self.type = index["type"]
-        """Type of the Spectral Index. One of ['vegetation', 'burn', 'water', 'urban', 'kernel', 'radar']"""
+        self.application_domain = index["application_domain"]
+        """Appication domain of the Spectral Index. One of ['vegetation', 'burn', 'water', 'urban', 'kernel', 'radar']"""
 
         self.reference = index["reference"]
         """URL to the reference/DOI of the Spectral Index."""
@@ -84,11 +84,14 @@ class SpectralIndex(object):
         self.contributor = index["contributor"]
         """Contributor of the Spectral Index to Awesome Spectral Indices."""
 
+        self.platforms = index["platforms"]
+        """Platforms with the required bands for the Spectral Index computation."""
+
     def __repr__(self):
         """Machine readable output of the Spectral Index."""
 
         result = f"""SpectralIndex({self.short_name}: {self.long_name})
-        * Type: {self.type}
+        * Application Domain: {self.application_domain}
         * Bands/Parameters: {self.bands}
         * Formula: {self.formula}
         * Reference: {self.reference}
@@ -100,7 +103,7 @@ class SpectralIndex(object):
         """Human readable output of the Spectral Index."""
 
         result = f"""{self.short_name}: {self.long_name}
-        * Type: {self.type}
+        * Application Domain: {self.application_domain}
         * Bands/Parameters: {self.bands}
         * Formula: {self.formula}
         * Reference: {self.reference}

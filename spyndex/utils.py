@@ -44,7 +44,7 @@ def _get_indices(online=False):
     """
     if online:
         indices = requests.get(
-            "https://raw.githubusercontent.com/davemlz/awesome-spectral-indices/main/output/spectral-indices-dict.json"
+            "https://raw.githubusercontent.com/awesome-spectral-indices/awesome-spectral-indices/main/output/spectral-indices-dict.json"
         ).json()
     else:
         indices = _load_JSON()
