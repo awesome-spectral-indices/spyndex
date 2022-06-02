@@ -1,6 +1,14 @@
 Changelog
 =========
 
+v0.1.0
+------
+
+Improvements
+~~~~~~~~~~~~
+
+- Awesome Spectral Indices list upgraded to v0.1.0.
+
 v0.0.5
 ------
 
