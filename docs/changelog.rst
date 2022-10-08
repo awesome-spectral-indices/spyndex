@@ -1,6 +1,15 @@
 Changelog
 =========
 
+v0.2.0
+------
+
+Improvements
+~~~~~~~~~~~~
+
+- Awesome Spectral Indices list upgraded to v0.2.0.
+- :code:`Bands` and :code:`Constants` objects are automatically updated. 
+
 v0.1.0
 ------
 
