@@ -41,6 +41,15 @@ class Test(unittest.TestCase):
         self.assertIsInstance(spyndex.indices.NDVI.platforms, list)
         self.assertIsInstance(spyndex.indices.NDVI.application_domain, str)
 
+    def test_catalogue_bands(self):
+        """Test the bands class"""
+        self.assertIsInstance(spyndex.bands.N.short_name, str)
+        self.assertIsInstance(spyndex.bands.N.sentinel2a.wavelength, float)
+
+    def test_catalogue_constants(self):
+        """Test the constants class"""
+        self.assertIsInstance(spyndex.constants.C1.short_name, str)
+
     def test_numeric(self):
         """Test the computeIndex() method"""
         result = spyndex.computeIndex(
