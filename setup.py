@@ -14,8 +14,8 @@ def read(filename):
 
 setup(
     name="spyndex",
-    version="0.1.0",
-    url="https://github.com/davemlz/spyndex",
+    version="0.2.0",
+    url="https://github.com/awesome-spectral-indices/spyndex",
     license="MIT",
     author="David Montero Loaiza",
     author_email="dml.mont@gmail.com",
@@ -27,7 +27,7 @@ setup(
     install_requires=[
         "dask>=2021.9.1",
         "earthengine-api",
-        "eemont>=0.2.5",
+        "eemont>=0.3.5",
         "matplotlib",
         "numpy",
         "pandas",

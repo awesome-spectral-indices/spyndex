@@ -27,7 +27,7 @@ copyright = "2021, David Montero Loaiza"
 author = "David Montero Loaiza"
 
 # The full version, including alpha/beta/rc tags
-release = "0.1.0"
+release = "0.2.0"
 
 
 # -- General configuration ---------------------------------------------------
@@ -79,7 +79,7 @@ html_theme_options = {
     "color_primary": "white",
     "color_accent": "pink",
     # Set the repo location to get a badge with stats
-    "repo_url": "https://github.com/davemlz/spyndex",
+    "repo_url": "https://github.com/awesome-spectral-indices/spyndex",
     "repo_name": "spyndex",
     # Visible levels of the global TOC; -1 means unlimited
     "globaltoc_depth": 2,
