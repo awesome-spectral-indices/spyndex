@@ -81,8 +81,8 @@ class Test(unittest.TestCase):
     def test_numeric_class_kwargs(self):
         """Test the computeIndex() method"""
         result = spyndex.indices.NDVI.compute(
-            N = 0.6,
-            R = 0.1,
+            N=0.6,
+            R=0.1,
         )
         self.assertIsInstance(result, float)
 
@@ -90,14 +90,14 @@ class Test(unittest.TestCase):
         """Test the computeIndex() method"""
         result = spyndex.computeIndex(
             indices,
-            N = 0.6,
-            R = 0.1,
-            G = 0.3,
-            B = 0.1,
-            L = spyndex.constants.L.default,
-            C1 = spyndex.constants.C1.default,
-            C2 = spyndex.constants.C2.default,
-            g = spyndex.constants.g.default,
+            N=0.6,
+            R=0.1,
+            G=0.3,
+            B=0.1,
+            L=spyndex.constants.L.default,
+            C1=spyndex.constants.C1.default,
+            C2=spyndex.constants.C2.default,
+            g=spyndex.constants.g.default,
         )
         self.assertIsInstance(result, list)
         self.assertIsInstance(result[0], float)

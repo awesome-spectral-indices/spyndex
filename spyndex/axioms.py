@@ -1,7 +1,7 @@
 from box import Box
 
-from .utils import _get_indices, _load_JSON
 from .spyndex import computeIndex
+from .utils import _get_indices, _load_JSON
 
 
 class SpectralIndices(Box):
@@ -28,7 +28,7 @@ class SpectralIndices(Box):
 
     def __str__(self):
         """Human readable output of the Spectral Indices object."""
-        
+
         return f"{list(self.keys())}"
 
 
@@ -75,7 +75,7 @@ class SpectralIndex(object):
         self.reference = index["reference"]
         """URL to the reference/DOI of the Spectral Index."""
 
-        self.formula = index["formula"].replace(" ","")
+        self.formula = index["formula"].replace(" ", "")
         """Formula (as expression) of the Spectral Index."""
 
         self.date_of_addition = index["date_of_addition"]
@@ -95,7 +95,7 @@ class SpectralIndex(object):
         * Bands/Parameters: {self.bands}
         * Formula: {self.formula}
         * Reference: {self.reference}
-        """    
+        """
 
         return result
 
@@ -107,18 +107,18 @@ class SpectralIndex(object):
         * Bands/Parameters: {self.bands}
         * Formula: {self.formula}
         * Reference: {self.reference}
-        """    
+        """
 
         return result
 
-    def compute(self, params = None, **kwargs):
+    def compute(self, params=None, **kwargs):
         """Computes a Spectral Index.
 
         Parameters
         ----------
         params: dict
-            Parameters used as inputs for the computation. The input data must be 
-            compatible with Overloaded Operators. Some inputs' types supported are pandas 
+            Parameters used as inputs for the computation. The input data must be
+            compatible with Overloaded Operators. Some inputs' types supported are pandas
             series, numpy arrays, xarray objects and numeric objects. Earth Engine objects
             are also compatible when using eemont.
         kwargs:
@@ -154,7 +154,7 @@ class SpectralIndex(object):
         else:
             parameters = params
 
-        return computeIndex(self.short_name,parameters)
+        return computeIndex(self.short_name, parameters)
 
 
 def _create_indices():
@@ -165,7 +165,7 @@ def _create_indices():
     for key, value in indices.items():
         indices_class[key] = SpectralIndex(value)
 
-    return SpectralIndices(indices_class,frozen_box = True)
+    return SpectralIndices(indices_class, frozen_box=True)
 
 
 indices = _create_indices()
@@ -174,7 +174,7 @@ indices = _create_indices()
 class Bands(Box):
     """Bands object.
 
-    This object allows interaction with the list of bands required for the Spectral 
+    This object allows interaction with the list of bands required for the Spectral
     Indices in the Awesome Spectral Indices list.
 
     See Also
@@ -196,7 +196,7 @@ class Bands(Box):
 
     def __str__(self):
         """Human readable output of the Constant."""
-        
+
         return f"{list(self.keys())}"
 
 
@@ -240,7 +240,6 @@ class PlatformBand(object):
         self.bandwidth = platform_band["bandwidth"]
         """Bandwidth of the Band (in nm) for the specific Platform."""
 
-
     def __repr__(self):
         """Machine readable output of the Band."""
 
@@ -248,7 +247,7 @@ class PlatformBand(object):
         * Band: {self.band}
         * Center Wavelength (nm): {self.wavelength}
         * Bandwidth (nm): {self.bandwidth}
-        """    
+        """
 
         return result
 
@@ -259,7 +258,7 @@ class PlatformBand(object):
         * Band: {self.band}
         * Center Wavelength (nm): {self.wavelength}
         * Bandwidth (nm): {self.bandwidth}
-        """    
+        """
 
         return result
 
@@ -268,7 +267,7 @@ class Band(object):
     """Band object.
 
     This object allows interaction with specific bands in the the list of required bands
-    for the Spectral Indices in the Awesome Spectral Indices list. Attributes of the 
+    for the Spectral Indices in the Awesome Spectral Indices list. Attributes of the
     Band can be accessed using this object.
 
     See Also
@@ -328,12 +327,11 @@ class Band(object):
             self.modis = PlatformBand(band["modis"])
             """Description of the band for the MODIS platform."""
 
-
     def __repr__(self):
         """Machine readable output of the Band."""
 
         result = f"""Band({self.short_name}: {self.long_name})
-        """    
+        """
 
         return result
 
@@ -341,7 +339,7 @@ class Band(object):
         """Human readable output of the Constant."""
 
         result = f"""{self.short_name}: {self.long_name}
-        """    
+        """
 
         return result
 
@@ -354,7 +352,7 @@ def _create_bands():
     for key, value in bands.items():
         bands_class[key] = Band(value)
 
-    return Bands(bands_class,frozen_box = True)
+    return Bands(bands_class, frozen_box=True)
 
 
 bands = _create_bands()
@@ -363,7 +361,7 @@ bands = _create_bands()
 class Constants(Box):
     """Constants object.
 
-    This object allows interaction with the list of constants of the Spectral Indices in 
+    This object allows interaction with the list of constants of the Spectral Indices in
     the Awesome Spectral Indices list.
 
     See Also
@@ -395,7 +393,7 @@ class Constant(object):
     """Constant object.
 
     This object allows interaction with specific constants in the the list of constants of
-    the Spectral Indices in  the Awesome Spectral Indices list. Attributes of the 
+    the Spectral Indices in  the Awesome Spectral Indices list. Attributes of the
     Constant can be accessed using this object.
 
     See Also
@@ -440,7 +438,7 @@ class Constant(object):
 
         result = f"""Constant({self.short_name}: {self.long_name})
         * Default value: {self.default}
-        """    
+        """
 
         return result
 
@@ -449,7 +447,7 @@ class Constant(object):
 
         result = f"""{self.short_name}: {self.long_name}
         * Default value: {self.default}
-        """    
+        """
 
         return result
 
@@ -462,7 +460,7 @@ def _create_constants():
     for key, value in constants.items():
         constants_class[key] = Constant(value)
 
-    return Constants(constants_class,frozen_box = True)
+    return Constants(constants_class, frozen_box=True)
 
 
 constants = _create_constants()
