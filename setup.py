@@ -31,7 +31,7 @@ setup(
         "matplotlib",
         "numpy",
         "pandas",
-        "python-box",
+        "python-box>=6.0",
         "requests",
         "seaborn",
         "xarray",
