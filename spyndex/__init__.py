@@ -1,6 +1,6 @@
 """spyndex - Awesome Spectral Indices in Python"""
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "David Montero Loaiza <dml.mont@gmail.com>"
 __all__ = []
 
