@@ -27,7 +27,7 @@ setup(
     install_requires=[
         "dask>=2021.9.1",
         "earthengine-api",
-        "eemont>=0.3.5",
+        "eemont>=0.3.6",
         "matplotlib",
         "numpy",
         "pandas",
