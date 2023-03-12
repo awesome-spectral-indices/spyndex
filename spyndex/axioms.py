@@ -295,6 +295,12 @@ class Band(object):
         self.common_name = band["common_name"]
         """Common name of the Band according to the Electro-Optical Extension Specification for STAC."""
 
+        self.min_wavelength = band["min_wavelength"]
+        """Minimum wavelength of the spectral range of the band (nm)."""
+
+        self.max_wavelength = band["max_wavelength"]
+        """Maximum wavelength of the spectral range of the band (nm)."""
+
         self.standard = band["short_name"]
         """Short name of the Band. Equivalent to :code:`short_name`."""
 
