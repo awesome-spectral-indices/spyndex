@@ -292,6 +292,9 @@ class Band(object):
         self.long_name = band["long_name"]
         """Description/Name of the Band."""
 
+        self.common_name = band["common_name"]
+        """Common name of the Band according to the Electro-Optical Extension Specification for STAC."""
+
         self.standard = band["short_name"]
         """Short name of the Band. Equivalent to :code:`short_name`."""
 
