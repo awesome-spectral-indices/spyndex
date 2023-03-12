@@ -327,6 +327,18 @@ class Band(object):
             self.modis = PlatformBand(band["modis"])
             """Description of the band for the MODIS platform."""
 
+        if "wv3" in band.keys():
+            self.worldview3 = PlatformBand(band["wv3"])
+            """Description of the band for the WorldView-3 platform."""
+
+        if "wv2" in band.keys():
+            self.worldview2 = PlatformBand(band["wv2"])
+            """Description of the band for the WorldView-2 platform."""
+
+        if "planetscope" in band.keys():
+            self.planetscope = PlatformBand(band["planetscope"])
+            """Description of the band for the PlanetScope platform."""
+
     def __repr__(self):
         """Machine readable output of the Band."""
 
