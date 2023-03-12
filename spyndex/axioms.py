@@ -304,48 +304,48 @@ class Band(object):
         self.standard = band["short_name"]
         """Short name of the Band. Equivalent to :code:`short_name`."""
 
-        if "sentinel2a" in band["platform"].keys():
-            self.sentinel2a = PlatformBand(band["platform"]["sentinel2a"])
+        if "sentinel2a" in band["platforms"].keys():
+            self.sentinel2a = PlatformBand(band["platforms"]["sentinel2a"])
             """Description of the band for the Sentinel-2A platform."""
 
-        if "sentinel2b" in band["platform"].keys():
-            self.sentinel2b = PlatformBand(band["platform"]["sentinel2b"])
+        if "sentinel2b" in band["platforms"].keys():
+            self.sentinel2b = PlatformBand(band["platforms"]["sentinel2b"])
             """Description of the band for the Sentinel-2B platform."""
 
-        if "landsat4" in band["platform"].keys():
-            self.landsat4 = PlatformBand(band["platform"]["landsat4"])
+        if "landsat4" in band["platforms"].keys():
+            self.landsat4 = PlatformBand(band["platforms"]["landsat4"])
             """Description of the band for the Landsat 4 platform."""
 
-        if "landsat5" in band["platform"].keys():
-            self.landsat5 = PlatformBand(band["platform"]["landsat5"])
+        if "landsat5" in band["platforms"].keys():
+            self.landsat5 = PlatformBand(band["platforms"]["landsat5"])
             """Description of the band for the Landsat 5 platform."""
 
-        if "landsat7" in band["platform"].keys():
-            self.landsat7 = PlatformBand(band["platform"]["landsat7"])
+        if "landsat7" in band["platforms"].keys():
+            self.landsat7 = PlatformBand(band["platforms"]["landsat7"])
             """Description of the band for the Landsat 7 platform."""
 
-        if "landsat8" in band["platform"].keys():
-            self.landsat8 = PlatformBand(band["platform"]["landsat8"])
+        if "landsat8" in band["platforms"].keys():
+            self.landsat8 = PlatformBand(band["platforms"]["landsat8"])
             """Description of the band for the Landsat 8 platform."""
 
-        if "landsat9" in band["platform"].keys():
-            self.landsat9 = PlatformBand(band["platform"]["landsat9"])
+        if "landsat9" in band["platforms"].keys():
+            self.landsat9 = PlatformBand(band["platforms"]["landsat9"])
             """Description of the band for the Landsat 9 platform."""
 
-        if "modis" in band["platform"].keys():
-            self.modis = PlatformBand(band["platform"]["modis"])
+        if "modis" in band["platforms"].keys():
+            self.modis = PlatformBand(band["platforms"]["modis"])
             """Description of the band for the MODIS platform."""
 
-        if "wv3" in band["platform"].keys():
-            self.worldview3 = PlatformBand(band["platform"]["wv3"])
+        if "wv3" in band["platforms"].keys():
+            self.worldview3 = PlatformBand(band["platforms"]["wv3"])
             """Description of the band for the WorldView-3 platform."""
 
-        if "wv2" in band["platform"].keys():
-            self.worldview2 = PlatformBand(band["platform"]["wv2"])
+        if "wv2" in band["platforms"].keys():
+            self.worldview2 = PlatformBand(band["platforms"]["wv2"])
             """Description of the band for the WorldView-2 platform."""
 
-        if "planetscope" in band["platform"].keys():
-            self.planetscope = PlatformBand(band["platform"]["planetscope"])
+        if "planetscope" in band["platforms"].keys():
+            self.planetscope = PlatformBand(band["platforms"]["planetscope"])
             """Description of the band for the PlanetScope platform."""
 
     def __repr__(self):
