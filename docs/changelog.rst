@@ -1,6 +1,21 @@
 Changelog
 =========
 
+v0.4.0
+------
+
+Improvements
+~~~~~~~~~~~~
+
+- Awesome Spectral Indices list upgraded to v0.4.0.
+
+New Features
+~~~~~~~~~~~~
+
+- The :code:`common_name` attribute for the :code:`Band` class was created.
+- The :code:`min_wavelength` attribute for the :code:`Band` class was created.
+- The :code:`max_wavelength` attribute for the :code:`Band` class was created.
+
 v0.3.0
 ------
 
