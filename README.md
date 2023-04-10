@@ -60,6 +60,8 @@
 
 **Documentation**: [https://spyndex.readthedocs.io/](https://spyndex.readthedocs.io/)
 
+**Paper**: [https://doi.org/10.1038/s41597-023-02096-0](https://doi.org/10.1038/s41597-023-02096-0)
+
 **PyPI**: [https://pypi.org/project/spyndex/](https://pypi.org/project/spyndex/)
 
 **Conda-forge**: [https://anaconda.org/conda-forge/spyndex](https://anaconda.org/conda-forge/spyndex)
