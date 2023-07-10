@@ -9,7 +9,7 @@ import spyndex
 from .utils import _check_params, _get_indices
 
 
-def heatmap(index: str, x: str, y: str, params: Optional[dict] = None, **kwargs):
+def heatmap(index: str, x: str, y: str, params: Optional[dict] = None, online: bool = False, **kwargs):
     """Plot all posible index values as a color-encoded matrix.
 
     Parameters
@@ -23,6 +23,9 @@ def heatmap(index: str, x: str, y: str, params: Optional[dict] = None, **kwargs)
     params: dict
         Parameters for all remaining bands that are not used in :code:`x` nor :code:`y`.
         This dictionary must store just float values.
+    online : bool, default = False
+        Whether to retrieve the most recent list of indices directly from the GitHub
+        repository and not from the local copy.
     **kwargs : Keyword arguments
         Keyword arguments that can be passed to :code:`seaborn.heatmap()`.
 
@@ -64,11 +67,12 @@ def heatmap(index: str, x: str, y: str, params: Optional[dict] = None, **kwargs)
     else:
         params = {x: df[x], y: df[y]}
 
-    _check_params(index, params)
+    indices = _get_indices(online)
+    _check_params(index, params, indices)
 
     df[index] = spyndex.computeIndex(index=index, params=params)
 
-    df = df.pivot(y, x, index)
+    df = df.pivot(index=y, columns=x, values=index)
 
     h = sns.heatmap(df, **kwargs)
     h.invert_yaxis()
