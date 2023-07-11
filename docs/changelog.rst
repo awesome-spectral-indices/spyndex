@@ -1,6 +1,16 @@
 Changelog
 =========
 
+v0.5.0
+------
+
+Improvements
+~~~~~~~~~~~~
+
+- Awesome Spectral Indices list upgraded to v0.5.0.
+- Fixed heatmap plot `(#18) <https://github.com/awesome-spectral-indices/spyndex/issues/18>`_.
+- Pinned latest versions: :code:`dask>=2023.7.0`, :code:`pandas>=2.0.3`, :code:`xarray>=2023.6.0`.
+
 v0.4.0
 ------
 
