@@ -319,9 +319,9 @@ idx = spyndex.computeIndex(
 # Plot the indices (and the RGB image for comparison)
 fig, ax = plt.subplots(2,2,figsize = (10,10))
 plot.show(snt.sel(band = ["B04","B03","B02"]).data / 0.3,ax = ax[0,0],title = "RGB")
-plot.show(idx.sel(index = "NDVI"),ax = ax[0,1],title = "NDVI")
-plot.show(idx.sel(index = "GNDVI"),ax = ax[1,0],title = "GNDVI")
-plot.show(idx.sel(index = "SAVI"),ax = ax[1,1],title = "SAVI")
+plot.show(idx.sel(index = "NDVI").data,ax = ax[0,1],title = "NDVI")
+plot.show(idx.sel(index = "GNDVI").data,ax = ax[1,0],title = "GNDVI")
+plot.show(idx.sel(index = "SAVI").data,ax = ax[1,1],title = "SAVI")
 ```
 
 <p align="center">
@@ -370,8 +370,8 @@ idx = spyndex.computeIndex(
 # Plot the indices (and the RGB image for comparison)
 fig, ax = plt.subplots(1,3,figsize = (15,15))
 plot.show(snt.sel(band = ["B04","B03","B02"]).data / 0.3,ax = ax[0],title = "RGB")
-plot.show(idx.sel(index = "NDVI"),ax = ax[1],title = "NDVI")
-plot.show(idx.sel(index = "kNDVI"),ax = ax[2],title = "kNDVI")
+plot.show(idx.sel(index = "NDVI").data,ax = ax[1],title = "NDVI")
+plot.show(idx.sel(index = "kNDVI").data,ax = ax[2],title = "kNDVI")
 ```
 
 <p align="center">
