@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["spyndex*"]
+
+[project]
+name = "spyndex"
+version = "0.5.1"
+authors = [
+    {name = "David Montero Loaiza", email = "dml.mont@gmail.com"},
+]
+description = "Awesome Spectral Indices in Python"
+readme = "README.md"
+
+requires-python = ">=3.7"
+
+classifiers=[
+    "Development Status :: 2 - Pre-Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
+
+dependencies = [
+    "dask>=2023.7.0",
+    "eemont>=0.3.6",
+    "matplotlib",
+    "pandas>=2.0.3",
+    "python-box>=6.0",
+    "requests",
+    "seaborn",
+    "xarray>=2023.6.0",
+]
+
+[project.urls]
+"Bug Tracker"= "https://github.com/awesome-spectral-indices/spyndex/issues"
+Documentation =  "https://spyndex.readthedocs.io"
+"Source Code" = "https://github.com/awesome-spectral-indices/spyndex"
+
+[tool.setuptools.package-data]
+"spyndex.data" = ["*.json"]
+
+# Compatibility between black and isort
+[tool.isort]
+profile = "black"
