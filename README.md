@@ -70,6 +70,23 @@
 
 ---
 
+## Citation
+
+If you use this work, please consider citing the following paper:
+
+```bibtex
+@article{montero2023standardized,
+  title={A standardized catalogue of spectral indices to advance the use of remote sensing in Earth system research},
+  author={Montero, David and Aybar, C{\'e}sar and Mahecha, Miguel D and Martinuzzi, Francesco and S{\"o}chting, Maximilian and Wieneke, Sebastian},
+  journal={Scientific Data},
+  volume={10},
+  number={1},
+  pages={197},
+  year={2023},
+  publisher={Nature Publishing Group UK London}
+}
+```
+
 ## Overview
 
 The [Awesome Spectral Indices](https://github.com/davemlz/awesome-spectral-indices) is a standardized ready-to-use curated list of spectral indices
@@ -136,7 +153,6 @@ idx = spyndex.indices.NDVI.compute(
     R = da.sel(band = "Red"),
 )
 ```
-
 
 ## How does it work?
 
