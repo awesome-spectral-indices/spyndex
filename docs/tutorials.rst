@@ -12,3 +12,4 @@ Tutorials
     tutorials/dask.ipynb
     tutorials/ee.ipynb
     tutorials/pc.ipynb
+    tutorials/xcube.ipynb
