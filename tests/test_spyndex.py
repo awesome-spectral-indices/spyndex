@@ -172,7 +172,7 @@ class Test(unittest.TestCase):
                 "g": spyndex.constants.g.default,
             },
         )
-        self.assertIsInstance(result, pd.core.frame.DataFrame)
+        self.assertIsInstance(result, pd.DataFrame)
 
     def test_pandas_origin_false(self):
         """Test the computeIndex() method"""
@@ -191,7 +191,7 @@ class Test(unittest.TestCase):
             returnOrigin=False,
         )
         self.assertIsInstance(result, list)
-        self.assertIsInstance(result[0], pd.core.series.Series)
+        self.assertIsInstance(result[0], pd.Series)
 
     def test_xarray(self):
         """Test the computeIndex() method"""
@@ -208,7 +208,7 @@ class Test(unittest.TestCase):
                 "g": spyndex.constants.g.default,
             },
         )
-        self.assertIsInstance(result, xr.core.dataarray.DataArray)
+        self.assertIsInstance(result, xr.DataArray)
 
     def test_xarray_origin_false(self):
         """Test the computeIndex() method"""
@@ -227,7 +227,7 @@ class Test(unittest.TestCase):
             returnOrigin=False,
         )
         self.assertIsInstance(result, list)
-        self.assertIsInstance(result[0], xr.core.dataarray.DataArray)
+        self.assertIsInstance(result[0], xr.DataArray)
 
     def test_ee(self):
         """Test the computeIndex() method"""
@@ -244,7 +244,7 @@ class Test(unittest.TestCase):
                 "g": spyndex.constants.g.default,
             },
         )
-        self.assertIsInstance(result, ee.image.Image)
+        self.assertIsInstance(result, ee.Image)
 
     def test_ee_origin_false(self):
         """Test the computeIndex() method"""
@@ -263,7 +263,7 @@ class Test(unittest.TestCase):
             returnOrigin=False,
         )
         self.assertIsInstance(result, list)
-        self.assertIsInstance(result[0], ee.image.Image)
+        self.assertIsInstance(result[0], ee.Image)
 
 
 if __name__ == "__main__":
