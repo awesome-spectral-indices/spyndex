@@ -1,7 +1,7 @@
 import json
 import os
+from pathlib import Path
 
-import pkg_resources
 import requests
 
 import spyndex
@@ -20,10 +20,7 @@ def _load_JSON(file="spectral-indices-dict.json"):
     object
         JSON file.
     """
-    spyndexDir = os.path.dirname(
-        pkg_resources.resource_filename("spyndex", "spyndex.py")
-    )
-    dataPath = os.path.join(spyndexDir, "data/" + file)
+    dataPath = Path(__file__).parent / "data" / file
     f = open(dataPath)
     return json.load(f)
 
