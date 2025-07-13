@@ -4,6 +4,7 @@ eemont
 matplotlib
 numpy
 pandas
+pyarrow
 python-box
 requests
 seaborn
