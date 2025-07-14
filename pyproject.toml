@@ -7,14 +7,14 @@ include = ["spyndex*"]
 
 [project]
 name = "spyndex"
-version = "0.5.1"
+version = "0.7.0"
 authors = [
     {name = "David Montero Loaiza", email = "dml.mont@gmail.com"},
 ]
 description = "Awesome Spectral Indices in Python"
 readme = "README.md"
 
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 
 classifiers=[
     "Development Status :: 2 - Pre-Alpha",
