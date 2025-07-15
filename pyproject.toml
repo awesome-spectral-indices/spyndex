@@ -27,7 +27,7 @@ classifiers=[
 
 dependencies = [
     "dask>=2023.7.0",
-    "earthengine-api>=1.5.24"
+    "earthengine-api>=1.5.24",
     "eemont>=0.3.6",
     "matplotlib",
     "pandas>=2.0.3",
