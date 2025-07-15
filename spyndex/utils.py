@@ -1,10 +1,11 @@
 import json
 import os
 
-import pkg_resources
 import requests
 
 import spyndex
+
+from importlib.resources import files
 
 
 def _load_JSON(file="spectral-indices-dict.json"):
@@ -20,12 +21,9 @@ def _load_JSON(file="spectral-indices-dict.json"):
     object
         JSON file.
     """
-    spyndexDir = os.path.dirname(
-        pkg_resources.resource_filename("spyndex", "spyndex.py")
-    )
-    dataPath = os.path.join(spyndexDir, "data/" + file)
-    f = open(dataPath)
-    return json.load(f)
+    data_file = files("spyndex.data") / file
+    with data_file.open("r", encoding="utf-8") as f:
+        return json.load(f)
 
 
 def _get_indices(online=False):
