@@ -227,20 +227,20 @@ def computeIndex(
         if returnOrigin:
             if isinstance(result[0], np.ndarray):
                 result = np.array(result)
-            elif isinstance(result[0], pd.core.series.Series):
+            elif isinstance(result[0], pd.Series):
                 result = pd.DataFrame(dict(zip(index, result)))
-            elif isinstance(result[0], xr.core.dataarray.DataArray):
+            elif isinstance(result[0], xr.DataArray):
                 result = [x.reset_coords(drop=True) for x in result]
                 result = xr.concat(result, dim=coordinate).assign_coords(
                     {coordinate: index}
                 )
-            elif isinstance(result[0], ee.image.Image):
+            elif isinstance(result[0], ee.Image):
                 result = ee.Image(result).rename(index)
-            elif isinstance(result[0], ee.ee_number.Number):
+            elif isinstance(result[0], ee.Number):
                 result = ee.List(result)
-            elif isinstance(result[0], dask.array.core.Array):
+            elif isinstance(result[0], dask.array.Array):
                 result = da.array(result)
-            elif isinstance(result[0], dask.dataframe.core.Series):
+            elif isinstance(result[0], dask.dataframe.Series):
                 result = dd.concat(result, axis="columns")
                 result.columns = index
 
@@ -402,10 +402,10 @@ def computeKernel(kernel: str, params: Optional[dict] = None, **kwargs) -> Any:
     }
 
     if (
-        isinstance(params["a"], ee.image.Image)
-        or isinstance(params["b"], ee.image.Image)
-        or isinstance(params["a"], ee.ee_number.Number)
-        or isinstance(params["b"], ee.ee_number.Number)
+        isinstance(params["a"], ee.Image)
+        or isinstance(params["b"], ee.Image)
+        or isinstance(params["a"], ee.Number)
+        or isinstance(params["b"], ee.Number)
     ):
         kernels["RBF"] = "exp((-1.0 * (a - b) ** 2.0)/(2.0 * sigma ** 2.0))"
         result = params["a"].expression(kernels[kernel], params)
