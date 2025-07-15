@@ -1,6 +1,18 @@
 Changelog
 =========
 
+v0.7.0
+------
+
+Improvements
+~~~~~~~~~~~~
+
+- Awesome Spectral Indices list upgraded to v0.7.0.
+- Pinned latest versions: :code:`earthengine-api>=1.5.24`.
+- :code:`pkg-resources` was removed `(#28) <https://github.com/awesome-spectral-indices/spyndex/issues/28>`_.
+- Migrated from :code:`setup.py` to :code:`pyproject.toml` `(#20) <https://github.com/awesome-spectral-indices/spyndex/issues/20>`_.
+- Refactor types `(#30) <https://github.com/awesome-spectral-indices/spyndex/pull/30>`_.
+
 v0.6.0
 ------
 
