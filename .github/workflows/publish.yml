@@ -1,0 +1,39 @@
+name: Publish to PyPI
+
+on:
+  release:
+    types: [published]  # triggers when a release is published
+  workflow_dispatch:     # optional manual trigger
+
+permissions:
+  contents: read
+  id-token: write   # REQUIRED for PyPI Trusted Publishing (OIDC)
+
+jobs:
+  build-and-publish:
+    name: Build and publish to PyPI
+    runs-on: ubuntu-latest
+    # Only run if the release is NOT a prerelease
+    if: github.event.release.prerelease == false
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install build tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install build
+
+      - name: Build sdist and wheel
+        run: python -m build
+
+      - name: Publish to PyPI (via OIDC)
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          print-hash: true
