@@ -190,12 +190,16 @@ Here is the list of the dask objects that you can use with spyndex:
 - `dask.Array` (with [dask](https://docs.dask.org/en/latest/))
 - `dask.Series` (with [dask](https://docs.dask.org/en/latest/))
 
+BUT WAIT! THERE IS EVEN MORE! If you want **GPU-accelerated computing**, you can use [cupy](https://cupy.dev/)!
+
+- `cupy.ndarray` (with [cupy](https://cupy.dev/) or with [cupy-xarray](https://github.com/xarray-contrib/cupy-xarray))
+
 This means that you can actually use spyndex in a lot of processes! For example, you can download a Sentinel-2 image with
 [sentinelsat](https://github.com/sentinelsat/sentinelsat), open and read it with [rasterio](https://github.com/mapbox/rasterio) and then compute 
 the desired spectral indices with [spyndex](https://github.com/davemlz/spyndex). Or you can search through the Landsat-8 STAC in the 
 [Planetary Computer](https://planetarycomputer.microsoft.com/) ecosystem using [pystac-client](https://github.com/stac-utils/pystac-client),
 convert it to an `xarray.DataArray` with [stackstac](https://github.com/gjoseph92/stackstac) and then compute spectral indices using
-[spyndex](https://github.com/davemlz/spyndex) in parallel with [dask](https://docs.dask.org/en/latest/)! Amazing, right!?
+[spyndex](https://github.com/davemlz/spyndex) in parallel with [dask](https://docs.dask.org/en/latest/) or with GPU acceleration using [cupy](https://cupy.dev/)! Amazing, right!?
 
 ## Installation
 
@@ -473,6 +477,59 @@ idx = spyndex.computeIndex(
 # Since dask works in lazy mode,
 # you have to tell it that you want to compute the indices!
 idx.compute()
+```
+
+### Using `cupy`
+
+You want GPU-accelerated computing? Well, that's also possible with `spyndex` and `cupy` (and with `cupy-xarray` too!).
+
+Try it with `cupy`:
+
+```python
+import spyndex
+import cupy as cp
+
+# cupy.ndarray objects
+N = cp.random.normal(0.6,0.10,10000)
+R = cp.random.normal(0.1,0.05,10000)
+
+# Returns a cupy.ndarray object
+idx = spyndex.computeIndex(
+    index = "NDVI",
+    N = N,
+    R = R
+)
+```
+
+Try it with `cupy-xarray`:
+
+```python
+import spyndex
+import xarray as xr
+import cupy_xarray
+
+# Open a dataset (in this case a xarray.DataArray)
+snt = spyndex.datasets.open("sentinel")
+
+# Convert it to a dataset of cupy.ndarray objects
+snt_cupy = snt.cupy.as_cupy()
+
+# Scale the data (remember that the valid domain for reflectance is [0,1])
+snt_cupy = snt_cupy / 10000
+
+# Compute the desired spectral indices
+idx_cupy = spyndex.computeIndex(
+    index = ["NDVI","GNDVI","SAVI"],
+    params = {
+        "N": snt_cupy.sel(band = "B08"),
+        "R": snt_cupy.sel(band = "B04"),
+        "G": snt_cupy.sel(band = "B03"),
+        "L": 0.5
+    }
+)
+
+# Convert back to numpy!
+idx = idx_cupy.as_numpy()
 ```
 
 ### Plotting Spectral Indices
