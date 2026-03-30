@@ -13,7 +13,9 @@
     Xarray</a> | <a href="https://github.com/google/earthengine-api" target="_blank">
     Earth Engine</a> | <a href="https://github.com/microsoft/planetary-computer-sdk-for-python" target="_blank">
     Planetary Computer</a> | <a href="https://docs.dask.org/en/latest/" target="_blank">
-    Dask</a> </b>
+    Dask</a> | <a href="https://cupy.dev/" target="_blank">
+    Cupy</a> | <a href="https://github.com/xarray-contrib/cupy-xarray" target="_blank">
+    Cupy-Xarray</a> </b>
 </p>
 <p align="center">
 <a href='https://pypi.python.org/pypi/spyndex'>
