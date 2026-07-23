@@ -43,8 +43,11 @@ Documentation =  "https://spyndex.readthedocs.io"
 profile = "black"
 
 [project.optional-dependencies]
-dask = [
-    "dask[array,dataframe]>=2023.7.0",
+dask-array = [
+    "dask[array]>=2023.7.0",
+]
+dask-dataframe = [
+    "dask[dataframe]>=2023.7.0",
     "pandas>=2.0.3",
     "pyarrow",
 ]

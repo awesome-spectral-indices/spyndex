@@ -189,8 +189,8 @@ with [dask](https://docs.dask.org/en/latest/)!
 
 Here is the list of the dask objects that you can use with spyndex:
 
-- `dask.Array` (with [dask](https://docs.dask.org/en/latest/))
-- `dask.Series` (with [dask](https://docs.dask.org/en/latest/))
+- `dask.Array` (with the `dask-array` extra)
+- `dask.Series` (with the `dask-dataframe` extra)
 
 BUT WAIT! THERE IS EVEN MORE! If you want **GPU-accelerated computing**, you can use [cupy](https://cupy.dev/)!
 
@@ -217,7 +217,8 @@ Install support for an optional array or dataframe library:
 pip install "spyndex[numpy]"
 pip install "spyndex[pandas]"
 pip install "spyndex[xarray]"
-pip install "spyndex[dask]"
+pip install "spyndex[dask-array]"
+pip install "spyndex[dask-dataframe]"
 ```
 
 Plotting support is available with `pip install "spyndex[plot]"`, and Earth

@@ -98,8 +98,8 @@ with `dask <https://docs.dask.org/en/latest/>`_!
 
 Here is the list of the dask objects that you can use with spyndex:
 
-- :code:`dask.Array` (with `dask <https://docs.dask.org/en/latest/>`_)
-- :code:`dask.Series` (with `dask <https://docs.dask.org/en/latest/>`_)
+- :code:`dask.Array` (with the :code:`dask-array` extra)
+- :code:`dask.Series` (with the :code:`dask-dataframe` extra)
 
 This means that you can actually use spyndex in a lot of processes! For example, you can download a Sentinel-2 image with
 `sentinelsat <https://github.com/sentinelsat/sentinelsat>`_, open and read it with `rasterio <https://github.com/mapbox/rasterio>`_ and then compute 
@@ -124,7 +124,8 @@ Install support for an optional array or dataframe library:
     pip install "spyndex[numpy]"
     pip install "spyndex[pandas]"
     pip install "spyndex[xarray]"
-    pip install "spyndex[dask]"
+    pip install "spyndex[dask-array]"
+    pip install "spyndex[dask-dataframe]"
 
 Plotting support is available with :code:`pip install "spyndex[plot]"`, and Earth
 Engine support with :code:`pip install "spyndex[ee]"`.

@@ -8,9 +8,9 @@ Improvements
 ~~~~~~~~~~~~
 
 - The `Awesome Spectral Indices <https://github.com/awesome-spectral-indices/awesome-spectral-indices>`_ list was upgraded to v0.12.0.
-- NumPy, pandas, xarray, and Dask are now optional dependencies that can be installed with the :code:`numpy`, :code:`pandas`, :code:`xarray`, and :code:`dask` extras, respectively.
+- NumPy, pandas, xarray, Dask Array, and Dask DataFrame are now optional dependencies that can be installed with the :code:`numpy`, :code:`pandas`, :code:`xarray`, :code:`dask-array`, and :code:`dask-dataframe` extras, respectively.
 - Scientific computing, dataset, and plotting dependencies are now imported lazily, resulting in a lighter base installation. Plotting dependencies can be installed with the :code:`plot` extra.
-- The test environment installs NumPy, pandas, xarray, and Dask so the existing test suite continues to exercise the supported scientific computing libraries.
+- The test environment installs NumPy, pandas, xarray, Dask Array, and Dask DataFrame so the existing test suite continues to exercise the supported scientific computing libraries.
 
 v0.11.0
 ------ 
