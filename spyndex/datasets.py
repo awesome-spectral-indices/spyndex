@@ -1,9 +1,6 @@
 from typing import Any
 
-import pandas as pd
-import xarray as xr
-
-from .utils import _load_JSON
+from .utils import _import_optional_dependency, _load_JSON
 
 
 def open(dataset: str) -> Any:
@@ -61,10 +58,12 @@ def open(dataset: str) -> Any:
     ds = _load_JSON(datasets[dataset])
 
     if dataset == "sentinel":
+        xr = _import_optional_dependency("xarray")
         ds = xr.DataArray(
             ds, dims=("band", "x", "y"), coords={"band": ["B02", "B03", "B04", "B08"]}
         )
     elif dataset == "spectral":
+        pd = _import_optional_dependency("pandas")
         ds = pd.DataFrame(ds)
 
     return ds

@@ -211,6 +211,18 @@ Install the latest version from PyPI:
 pip install spyndex
 ```
 
+Install support for an optional array or dataframe library:
+
+```
+pip install "spyndex[numpy]"
+pip install "spyndex[pandas]"
+pip install "spyndex[xarray]"
+pip install "spyndex[dask]"
+```
+
+Plotting support is available with `pip install "spyndex[plot]"`, and Earth
+Engine support with `pip install "spyndex[ee]"`.
+
 Upgrade spyndex by running:
 
 ```

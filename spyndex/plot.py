@@ -1,12 +1,8 @@
 from typing import Optional, Union
 
-import numpy as np
-import pandas as pd
-import seaborn as sns
-
 import spyndex
 
-from .utils import _check_params, _get_indices
+from .utils import _check_params, _get_indices, _import_optional_dependency
 
 
 def heatmap(index: str, x: str, y: str, params: Optional[dict] = None, online: bool = False, **kwargs):
@@ -50,6 +46,10 @@ def heatmap(index: str, x: str, y: str, params: Optional[dict] = None, online: b
     ...    cmap = "Spectral",
     ...    annot = True)
     """
+
+    np = _import_optional_dependency("numpy", extra="plot")
+    pd = _import_optional_dependency("pandas", extra="plot")
+    sns = _import_optional_dependency("seaborn", extra="plot")
 
     grid = np.round(np.mgrid[0:1.1:0.1, 0:1.1:0.1], 1)
     X = grid[0].flatten()

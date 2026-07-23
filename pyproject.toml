@@ -26,14 +26,8 @@ classifiers=[
 ]
 
 dependencies = [
-    "dask>=2023.7.0",
-    "matplotlib",
-    "pandas>=2.0.3",
-    "pyarrow",
     "python-box>=6.0",
     "requests",
-    "seaborn",
-    "xarray>=2023.6.0",
 ]
 
 [project.urls]
@@ -49,7 +43,27 @@ Documentation =  "https://spyndex.readthedocs.io"
 profile = "black"
 
 [project.optional-dependencies]
+dask = [
+    "dask[array,dataframe]>=2023.7.0",
+    "pandas>=2.0.3",
+    "pyarrow",
+]
 ee = [
     "earthengine-api>=1.5.24",
-    "eemont>=2025.7.1"
+    "eemont>=2025.7.1",
+]
+numpy = [
+    "numpy",
+]
+pandas = [
+    "pandas>=2.0.3",
+]
+plot = [
+    "matplotlib",
+    "numpy",
+    "pandas>=2.0.3",
+    "seaborn",
+]
+xarray = [
+    "xarray>=2023.6.0",
 ]

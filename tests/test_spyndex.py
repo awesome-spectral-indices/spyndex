@@ -1,5 +1,8 @@
 import unittest
 
+import dask
+import dask.array
+import dask.dataframe
 import numpy as np
 import pandas as pd
 import xarray as xr

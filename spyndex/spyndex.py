@@ -1,14 +1,15 @@
 import re
+import sys
 from typing import Any, List, Optional, Union
 
-import dask
-import dask.array as da
-import dask.dataframe as dd
-import numpy as np
-import pandas as pd
-import xarray as xr
-
-from .utils import _check_params, _get_indices, _has_ee_image, _has_ee_number, _maybe_import_earthengine
+from .utils import (
+    _check_params,
+    _get_indices,
+    _has_ee_image,
+    _has_ee_number,
+    _import_optional_dependency,
+    _maybe_import_earthengine,
+)
 
 
 def computeIndex(
@@ -225,11 +226,17 @@ def computeIndex(
         result = result[0]
     else:
         if returnOrigin:
-            if isinstance(result[0], np.ndarray):
+            np = sys.modules.get("numpy")
+            pd = sys.modules.get("pandas")
+            xr = sys.modules.get("xarray")
+            da = sys.modules.get("dask.array")
+            dd = sys.modules.get("dask.dataframe")
+
+            if np is not None and isinstance(result[0], np.ndarray):
                 result = np.array(result)
-            elif isinstance(result[0], pd.Series):
+            elif pd is not None and isinstance(result[0], pd.Series):
                 result = pd.DataFrame(dict(zip(index, result)))
-            elif isinstance(result[0], xr.DataArray):
+            elif xr is not None and isinstance(result[0], xr.DataArray):
                 result = [x.reset_coords(drop=True) for x in result]
                 result = xr.concat(result, dim=coordinate).assign_coords(
                     {coordinate: index}
@@ -240,9 +247,9 @@ def computeIndex(
             elif _has_ee_number(params):
                 import ee, eemont
                 result = ee.List(result)
-            elif isinstance(result[0], dask.array.Array):
+            elif da is not None and isinstance(result[0], da.Array):
                 result = da.array(result)
-            elif isinstance(result[0], dask.dataframe.Series):
+            elif dd is not None and isinstance(result[0], dd.Series):
                 result = dd.concat(result, axis="columns")
                 result.columns = index
 
@@ -410,8 +417,12 @@ def computeKernel(kernel: str, params: Optional[dict] = None, **kwargs) -> Any:
         kernels["RBF"] = "exp((-1.0 * (a - b) ** 2.0)/(2.0 * sigma ** 2.0))"
         result = params["a"].expression(kernels[kernel], params)
     else:
-        kernels["RBF"] = "np.exp((-1.0 * (a - b) ** 2.0)/(2.0 * sigma ** 2.0))"
-        params["np"] = np
+        if kernel == "RBF":
+            np = _import_optional_dependency("numpy")
+            kernels["RBF"] = (
+                "np.exp((-1.0 * (a - b) ** 2.0)/(2.0 * sigma ** 2.0))"
+            )
+            params["np"] = np
         result = eval(kernels[kernel], params)
 
     return result

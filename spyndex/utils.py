@@ -1,11 +1,11 @@
 import json
 import os
+from importlib import import_module
+from importlib.resources import files
 
 import requests
 
 import spyndex
-
-from importlib.resources import files
 
 
 def _load_JSON(file="spectral-indices-dict.json"):
@@ -72,6 +72,21 @@ def _check_params(index: str, params: dict, indices: dict):
             raise Exception(
                 f"'{band}' is missing in the parameters for {index} computation!"
             )
+
+
+def _import_optional_dependency(module: str, extra: str = None):
+    """Import an optional dependency or explain which spyndex extra provides it."""
+    if extra is None:
+        extra = module.split(".")[0]
+
+    try:
+        return import_module(module)
+    except ImportError as error:
+        raise ImportError(
+            f"{module} features require the optional dependency "
+            f"'spyndex[{extra}]'.\n"
+            f"Install it with:\n\n    pip install 'spyndex[{extra}]'"
+        ) from error
 
 
 def _has_ee_image(params: dict):
@@ -148,4 +163,3 @@ def _maybe_import_earthengine(params: dict):
                 "Earth Engine features also require 'eemont'.\n"
                 "Install it with:\n\n    pip install 'spyndex[ee]'"
             )
-
