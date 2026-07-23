@@ -7,7 +7,7 @@ include = ["spyndex*"]
 
 [project]
 name = "spyndex"
-version = "0.11.0"
+version = "0.12.0"
 authors = [
     {name = "David Montero Loaiza", email = "dml.mont@gmail.com"},
 ]
