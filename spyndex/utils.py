@@ -74,6 +74,45 @@ def _check_params(index: str, params: dict, indices: dict):
             )
 
 
+def _cast_params(params: dict, dtype) -> dict:
+    """Casts the numeric values of a parameters dictionary to a given dtype.
+
+    Values that support :code:`.astype()` (e.g. numpy arrays, pandas Series,
+    xarray DataArrays and dask arrays/series) are cast directly. Plain Python
+    :code:`int`/:code:`float` scalars are cast via :code:`numpy.dtype.type()`.
+    Any other value (e.g. Earth Engine objects) is left untouched, since Earth
+    Engine manages numeric precision through its own API.
+
+    Parameters
+    ----------
+    params : dict
+        Parameters dictionary to cast.
+    dtype : str | type | numpy.dtype
+        Target dtype (anything accepted by :code:`numpy.dtype()`, e.g.
+        :code:`"float32"` or :code:`numpy.float32`).
+
+    Returns
+    -------
+    dict
+        A new dictionary with the same keys as :code:`params`, with values cast
+        to :code:`dtype` where applicable. The original dictionary is not
+        modified.
+    """
+    np = _import_optional_dependency("numpy")
+    np_dtype = np.dtype(dtype)
+
+    cast = {}
+    for key, value in params.items():
+        if hasattr(value, "astype"):
+            cast[key] = value.astype(np_dtype)
+        elif isinstance(value, (int, float)):
+            cast[key] = np_dtype.type(value)
+        else:
+            cast[key] = value
+
+    return cast
+
+
 def _import_optional_dependency(module: str, extra: str = None):
     """Import an optional dependency or explain which spyndex extra provides it."""
     if extra is None:
