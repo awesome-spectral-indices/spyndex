@@ -3,6 +3,7 @@ import sys
 from typing import Any, List, Optional, Union
 
 from .utils import (
+    _cast_params,
     _check_params,
     _get_indices,
     _has_ee_image,
@@ -18,6 +19,7 @@ def computeIndex(
     online: bool = False,
     returnOrigin: bool = True,
     coordinate: str = "index",
+    dtype: Optional[str] = None,
     **kwargs,
 ) -> Any:
     """Computes one or more Spectral Indices from the Awesome Spectral Indices list.
@@ -49,6 +51,14 @@ def computeIndex(
     coordinate : str, default = "index"
         Name of the coordinate used to concatenate :code:`xarray.DataArray` objects when
         :code:`returnOrigin = True`.
+    dtype : str, default = None
+        Data type to cast :code:`params` to before computing the index (e.g.
+        :code:`"float32"`). Useful to avoid the automatic upcasting to
+        :code:`float64` that occurs when mixing numeric arrays (e.g. :code:`uint16`
+        or :code:`float32`) with Python :code:`float` constants. Values that don't
+        support casting (e.g. Earth Engine objects) are left untouched.
+
+        .. versionadded:: 0.13.0
     kwargs:
         Parameters used as inputs for the computation as keyword pairs. Ignored when
         params is defined.
@@ -201,10 +211,30 @@ def computeIndex(
     ...         "L": 0.5
     ...     }
     ... ).compute()
+
+    To avoid the automatic upcasting to :code:`float64` when working with
+    :code:`uint16` or :code:`float32` bands, use the :code:`dtype` parameter:
+
+    >>> s2_gm_indices = spyndex.computeIndex(
+    ...     index = ["NDVI", "EVI", "SAVI", "NIRv"],
+    ...     params = {
+    ...         "N": s2_gm.B08 / 10000,
+    ...         "R": s2_gm.B04 / 10000,
+    ...         "B": s2_gm.B02 / 10000,
+    ...         "g": spyndex.constants.g.default,
+    ...         "C1": spyndex.constants.C1.default,
+    ...         "C2": spyndex.constants.C2.default,
+    ...         "L": 1.0,
+    ...     },
+    ...     dtype = "float32",
+    ... )
     """
 
     if params is None:
         params = kwargs
+
+    if dtype is not None:
+        params = _cast_params(params, dtype)
 
     if not isinstance(index, list):
         index = [index]
@@ -256,7 +286,12 @@ def computeIndex(
     return result
 
 
-def computeKernel(kernel: str, params: Optional[dict] = None, **kwargs) -> Any:
+def computeKernel(
+    kernel: str,
+    params: Optional[dict] = None,
+    dtype: Optional[str] = None,
+    **kwargs,
+) -> Any:
     """Computes a kernel :code:`k(a,b)`.
 
     Kernel parameters are used for kernel indices like the kNDVI that requires the
@@ -273,6 +308,13 @@ def computeKernel(kernel: str, params: Optional[dict] = None, **kwargs) -> Any:
         and 'sigma' (length-scale) must be declared. For :code:`kernel = 'poly'`, the
         parameters 'a' (band A), 'b' (band B), 'p' (kernel degree) and 'c' (trade-off)
         must be declared.
+    dtype : str, default = None
+        Data type to cast :code:`params` to before computing the kernel (e.g.
+        :code:`"float32"`). Values that don't support casting (e.g. Earth Engine
+        objects) are left untouched, since Earth Engine dtype is handled through
+        its own API.
+
+        .. versionadded:: 0.13.0
     kwargs:
         Parameters used as inputs for the computation as keyword pairs. Ignored when
         params is defined.
@@ -404,6 +446,9 @@ def computeKernel(kernel: str, params: Optional[dict] = None, **kwargs) -> Any:
 
     if params is None:
         params = kwargs
+
+    if dtype is not None:
+        params = _cast_params(params, dtype)
 
     kernels = {
         "linear": "a * b",
