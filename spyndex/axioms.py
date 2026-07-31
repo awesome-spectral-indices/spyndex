@@ -111,7 +111,7 @@ class SpectralIndex(object):
 
         return result
 
-    def compute(self, params=None, **kwargs):
+    def compute(self, params=None, dtype=None, **kwargs):
         """Computes a Spectral Index.
 
         Parameters
@@ -121,6 +121,14 @@ class SpectralIndex(object):
             compatible with Overloaded Operators. Some inputs' types supported are pandas
             series, numpy arrays, xarray objects and numeric objects. Earth Engine objects
             are also compatible when using eemont.
+        dtype : str, default = None
+            Data type to cast :code:`params` to before computing the index (e.g.
+            :code:`"float32"`). Useful to avoid the automatic upcasting to
+            :code:`float64` that occurs when mixing numeric arrays with Python
+            :code:`float` constants. Values that don't support casting (e.g. Earth
+            Engine objects) are left untouched.
+
+            .. versionadded:: 0.13.0
         kwargs:
             Parameters used as inputs for the computation as keyword pairs. Ignored when
             params is defined.
@@ -154,7 +162,7 @@ class SpectralIndex(object):
         else:
             parameters = params
 
-        return computeIndex(self.short_name, parameters)
+        return computeIndex(self.short_name, parameters, dtype=dtype)
 
 
 def _create_indices():
