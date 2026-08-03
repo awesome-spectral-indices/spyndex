@@ -212,22 +212,39 @@ def computeIndex(
     ...     }
     ... ).compute()
 
-    To avoid the automatic upcasting to :code:`float64` when working with
-    :code:`uint16` or :code:`float32` bands, use the :code:`dtype` parameter:
+    Raw satellite products are often stored as scaled integers (e.g.
+    :code:`uint16`), which get upcast to :code:`float64` as soon as they are
+    scaled to reflectance, even if that's not what you want. Let's check:
 
-    >>> s2_gm_indices = spyndex.computeIndex(
-    ...     index = ["NDVI", "EVI", "SAVI", "NIRv"],
+    >>> R = (np.random.normal(0.12, 0.05, 10000) * 10000).astype("uint16")
+    >>> N = (np.random.normal(0.67, 0.11, 10000) * 10000).astype("uint16")
+    >>> ndvi = spyndex.computeIndex(
+    ...     index = "NDVI",
     ...     params = {
-    ...         "N": s2_gm.B08 / 10000,
-    ...         "R": s2_gm.B04 / 10000,
-    ...         "B": s2_gm.B02 / 10000,
-    ...         "g": spyndex.constants.g.default,
-    ...         "C1": spyndex.constants.C1.default,
-    ...         "C2": spyndex.constants.C2.default,
-    ...         "L": 1.0,
-    ...     },
-    ...     dtype = "float32",
+    ...         "N": N / 10000,
+    ...         "R": R / 10000
+    ...     }
     ... )
+    >>> ndvi
+    array([0.78067101, 0.5782938 , 0.62262558, ..., 0.68524269, 0.68087385, 
+           0.6166534 ], shape=(10000,))
+    >>> ndvi.dtype
+    dtype('float64')
+
+    The result is a :code:`float64` array. Use the :code:`dtype` parameter to
+    cast the :code:`params` to :code:`float32` before the computation and avoid
+    the unwanted upcasting:
+
+    >>> spyndex.computeIndex(
+    ...     index = "NDVI",
+    ...     params = {
+    ...         "N": N / 10000,
+    ...         "R": R / 10000
+    ...     },
+    ...     dtype = "float32"
+    ... )
+    array([0.780671  , 0.57829386, 0.6226255 , ..., 0.6852427 , 
+           0.6808739 , 0.6166534 ], shape=(10000,), dtype=float32)
     """
 
     if params is None:
