@@ -58,7 +58,7 @@ def computeIndex(
         or :code:`float32`) with Python :code:`float` constants. Values that don't
         support casting (e.g. Earth Engine objects) are left untouched.
 
-        .. versionadded:: 0.13.0
+        .. versionadded:: 0.12.1
     kwargs:
         Parameters used as inputs for the computation as keyword pairs. Ignored when
         params is defined.
@@ -314,7 +314,7 @@ def computeKernel(
         objects) are left untouched, since Earth Engine dtype is handled through
         its own API.
 
-        .. versionadded:: 0.13.0
+        .. versionadded:: 0.12.1
     kwargs:
         Parameters used as inputs for the computation as keyword pairs. Ignored when
         params is defined.
