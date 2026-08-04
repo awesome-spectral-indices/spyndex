@@ -3,6 +3,7 @@ import sys
 from typing import Any, List, Optional, Union
 
 from .utils import (
+    _cast_params,
     _check_params,
     _get_indices,
     _has_ee_image,
@@ -18,6 +19,7 @@ def computeIndex(
     online: bool = False,
     returnOrigin: bool = True,
     coordinate: str = "index",
+    dtype: Optional[str] = None,
     **kwargs,
 ) -> Any:
     """Computes one or more Spectral Indices from the Awesome Spectral Indices list.
@@ -49,6 +51,14 @@ def computeIndex(
     coordinate : str, default = "index"
         Name of the coordinate used to concatenate :code:`xarray.DataArray` objects when
         :code:`returnOrigin = True`.
+    dtype : str, default = None
+        Data type to cast :code:`params` to before computing the index (e.g.
+        :code:`"float32"`). Useful to avoid the automatic upcasting to
+        :code:`float64` that occurs when mixing numeric arrays (e.g. :code:`uint16`
+        or :code:`float32`) with Python :code:`float` constants. Values that don't
+        support casting (e.g. Earth Engine objects) are left untouched.
+
+        .. versionadded:: 0.12.1
     kwargs:
         Parameters used as inputs for the computation as keyword pairs. Ignored when
         params is defined.
@@ -201,10 +211,47 @@ def computeIndex(
     ...         "L": 0.5
     ...     }
     ... ).compute()
+
+    Raw satellite products are often stored as scaled integers (e.g.
+    :code:`uint16`), which get upcast to :code:`float64` as soon as they are
+    scaled to reflectance, even if that's not what you want. Let's check:
+
+    >>> R = (np.random.normal(0.12, 0.05, 10000) * 10000).astype("uint16")
+    >>> N = (np.random.normal(0.67, 0.11, 10000) * 10000).astype("uint16")
+    >>> ndvi = spyndex.computeIndex(
+    ...     index = "NDVI",
+    ...     params = {
+    ...         "N": N / 10000,
+    ...         "R": R / 10000
+    ...     }
+    ... )
+    >>> ndvi
+    array([0.78067101, 0.5782938 , 0.62262558, ..., 0.68524269, 0.68087385, 
+           0.6166534 ], shape=(10000,))
+    >>> ndvi.dtype
+    dtype('float64')
+
+    The result is a :code:`float64` array. Use the :code:`dtype` parameter to
+    cast the :code:`params` to :code:`float32` before the computation and avoid
+    the unwanted upcasting:
+
+    >>> spyndex.computeIndex(
+    ...     index = "NDVI",
+    ...     params = {
+    ...         "N": N / 10000,
+    ...         "R": R / 10000
+    ...     },
+    ...     dtype = "float32"
+    ... )
+    array([0.780671  , 0.57829386, 0.6226255 , ..., 0.6852427 , 
+           0.6808739 , 0.6166534 ], shape=(10000,), dtype=float32)
     """
 
     if params is None:
         params = kwargs
+
+    if dtype is not None:
+        params = _cast_params(params, dtype)
 
     if not isinstance(index, list):
         index = [index]
@@ -256,7 +303,12 @@ def computeIndex(
     return result
 
 
-def computeKernel(kernel: str, params: Optional[dict] = None, **kwargs) -> Any:
+def computeKernel(
+    kernel: str,
+    params: Optional[dict] = None,
+    dtype: Optional[str] = None,
+    **kwargs,
+) -> Any:
     """Computes a kernel :code:`k(a,b)`.
 
     Kernel parameters are used for kernel indices like the kNDVI that requires the
@@ -273,6 +325,13 @@ def computeKernel(kernel: str, params: Optional[dict] = None, **kwargs) -> Any:
         and 'sigma' (length-scale) must be declared. For :code:`kernel = 'poly'`, the
         parameters 'a' (band A), 'b' (band B), 'p' (kernel degree) and 'c' (trade-off)
         must be declared.
+    dtype : str, default = None
+        Data type to cast :code:`params` to before computing the kernel (e.g.
+        :code:`"float32"`). Values that don't support casting (e.g. Earth Engine
+        objects) are left untouched, since Earth Engine dtype is handled through
+        its own API.
+
+        .. versionadded:: 0.12.1
     kwargs:
         Parameters used as inputs for the computation as keyword pairs. Ignored when
         params is defined.
@@ -404,6 +463,9 @@ def computeKernel(kernel: str, params: Optional[dict] = None, **kwargs) -> Any:
 
     if params is None:
         params = kwargs
+
+    if dtype is not None:
+        params = _cast_params(params, dtype)
 
     kernels = {
         "linear": "a * b",

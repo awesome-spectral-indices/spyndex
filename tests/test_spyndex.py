@@ -275,5 +275,127 @@ class Test(unittest.TestCase):
         self.assertIsInstance(result[0], ee.Image)
 
 
+    def test_dtype_numeric(self):
+        """Test the dtype parameter with numeric inputs"""
+        result = spyndex.computeIndex(
+            "NDVI",
+            {
+                "N": 0.6,
+                "R": 0.1,
+            },
+            dtype="float32",
+        )
+        self.assertIsInstance(result, np.float32)
+
+    def test_dtype_numpy(self):
+        """Test the dtype parameter with numpy arrays"""
+        N_uint16 = (N * 10000).astype("uint16")
+        R_uint16 = (R * 10000).astype("uint16")
+
+        result_default = spyndex.computeIndex(
+            "NDVI",
+            {
+                "N": N_uint16 / 10000,
+                "R": R_uint16 / 10000,
+            },
+        )
+        self.assertEqual(result_default.dtype, np.float64)
+
+        result_cast = spyndex.computeIndex(
+            "NDVI",
+            {
+                "N": N_uint16 / 10000,
+                "R": R_uint16 / 10000,
+            },
+            dtype="float32",
+        )
+        self.assertEqual(result_cast.dtype, np.float32)
+
+    def test_dtype_numpy_multiple(self):
+        """Test the dtype parameter with numpy arrays and multiple indices"""
+        result = spyndex.computeIndex(
+            indices,
+            {
+                "N": N,
+                "R": R,
+                "G": G,
+                "B": B,
+                "L": spyndex.constants.L.default,
+                "C1": spyndex.constants.C1.default,
+                "C2": spyndex.constants.C2.default,
+                "g": spyndex.constants.g.default,
+            },
+            dtype="float32",
+        )
+        self.assertIsInstance(result, np.ndarray)
+        self.assertEqual(result.dtype, np.float32)
+
+    def test_dtype_pandas(self):
+        """Test the dtype parameter with pandas Series"""
+        result = spyndex.computeIndex(
+            "NDVI",
+            {
+                "N": df["N"],
+                "R": df["R"],
+            },
+            dtype="float32",
+        )
+        self.assertEqual(result.dtype, np.float32)
+
+    def test_dtype_xarray(self):
+        """Test the dtype parameter with xarray DataArrays"""
+        result = spyndex.computeIndex(
+            "NDVI",
+            {
+                "N": da.sel(channel="N"),
+                "R": da.sel(channel="R"),
+            },
+            dtype="float32",
+        )
+        self.assertEqual(result.dtype, np.float32)
+
+    def test_dtype_class(self):
+        """Test the dtype parameter through SpectralIndex.compute()"""
+        result = spyndex.indices.NDVI.compute(
+            {
+                "N": 0.6,
+                "R": 0.1,
+            },
+            dtype="float32",
+        )
+        self.assertIsInstance(result, np.float32)
+
+    def test_dtype_kernel(self):
+        """Test the dtype parameter through computeKernel()"""
+        result = spyndex.computeKernel(
+            "linear",
+            {
+                "a": N,
+                "b": R,
+            },
+            dtype="float32",
+        )
+        self.assertEqual(result.dtype, np.float32)
+
+    def test_dtype_invalid(self):
+        """Test that an invalid dtype raises an exception"""
+        with self.assertRaises(TypeError):
+            spyndex.computeIndex(
+                "NDVI",
+                {
+                    "N": 0.6,
+                    "R": 0.1,
+                },
+                dtype="not_a_dtype",
+            )
+
+    def test_dtype_does_not_mutate_params(self):
+        """Test that the original params dict is not mutated"""
+        params = {"N": N, "R": R}
+        spyndex.computeIndex("NDVI", params, dtype="float32")
+        self.assertEqual(params["N"].dtype, np.float64)
+        self.assertEqual(params["R"].dtype, np.float64)
+
+
 if __name__ == "__main__":
     unittest.main()
